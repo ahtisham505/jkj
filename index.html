@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Simple Website</title>
+    <title>USA People Search</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,30 +17,18 @@
             padding: 10px 0;
             text-align: center;
         }
-        nav {
-            margin: 20px 0;
-        }
-        nav a {
-            margin: 0 15px;
-            color: #35424a;
-            text-decoration: none;
-        }
         main {
             padding: 20px;
+            max-width: 600px;
+            margin: auto;
         }
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            background: #35424a;
-            color: white;
-            position: relative;
-            bottom: 0;
-            width: 100%;
+        .search-box {
+            margin-bottom: 20px;
         }
-        .card {
+        .result {
             background: white;
-            padding: 20px;
-            margin: 10px 0;
+            padding: 15px;
+            margin-top: 10px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -49,44 +37,34 @@
 <body>
 
 <header>
-    <h1>Welcome to My Simple Website</h1>
-    <nav>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-    </nav>
+    <h1>USA People Search</h1>
 </header>
 
 <main>
-    <section id="about" class="card">
-        <h2>About Us</h2>
-        <p>This is a simple website created as an example of a complete HTML page.</p>
-    </section>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Enter name or phone number">
+        <button onclick="searchPerson()">Search</button>
+    </div>
 
-    <section id="services" class="card">
-        <h2>Our Services</h2>
-        <ul>
-            <li>Web Development</li>
-            <li>Graphic Design</li>
-            <li>SEO Services</li>
-        </ul>
-    </section>
-
-    <section id="contact" class="card">
-        <h2>Contact Us</h2>
-        <form>
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name" required><br><br>
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" required><br><br>
-            <input type="submit" value="Submit">
-        </form>
-    </section>
+    <div id="result" class="result" style="display: none;">
+        <h2>Person Details</h2>
+        <p><strong>Name:</strong> <span id="name">John Doe</span></p>
+        <p><strong>Address:</strong> <span id="address">123 Main St, Springfield, USA</span></p>
+        <p><strong>Date of Birth:</strong> <span id="dob">January 1, 1980</span></p>
+    </div>
 </main>
 
-<footer>
-    <p>&copy; 2024 My Simple Website</p>
+<footer style="text-align: center; padding: 10px; background: #35424a; color: white; position: relative; bottom: 0; width: 100%;">
+    <p>&copy; 2024 USA People Search</p>
 </footer>
+
+<script>
+    function searchPerson() {
+        // For demo purposes, we just display static data.
+        // In a real application, you'd fetch data from a database or API.
+        document.getElementById('result').style.display = 'block';
+    }
+</script>
 
 </body>
 </html>
