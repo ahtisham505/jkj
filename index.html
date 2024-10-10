@@ -62,23 +62,29 @@
     function searchPerson() {
         const input = document.getElementById('searchInput').value;
 
-        // Simulate an API call
-        fetch(`https://api.example.com/search?query=${encodeURIComponent(input)}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('name').textContent = data.name;
-                    document.getElementById('address').textContent = data.address;
-                    document.getElementById('dob').textContent = data.dob;
-                    document.getElementById('result').style.display = 'block';
-                } else {
-                    alert('No results found.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again.');
-            });
+        // Simulated data for demonstration
+        const mockData = {
+            '555-555-5555': {
+                name: 'John Doe',
+                address: '123 Main St, Springfield, USA',
+                dob: 'January 1, 1980'
+            },
+            '555-555-5556': {
+                name: 'Jane Smith',
+                address: '456 Elm St, Springfield, USA',
+                dob: 'February 2, 1990'
+            }
+        };
+
+        const person = mockData[input];
+        if (person) {
+            document.getElementById('name').textContent = person.name;
+            document.getElementById('address').textContent = person.address;
+            document.getElementById('dob').textContent = person.dob;
+            document.getElementById('result').style.display = 'block';
+        } else {
+            alert('No results found.');
+        }
     }
 </script>
 
