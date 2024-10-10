@@ -48,21 +48,37 @@
 
     <div id="result" class="result" style="display: none;">
         <h2>Person Details</h2>
-        <p><strong>Name:</strong> <span id="name">John Doe</span></p>
-        <p><strong>Address:</strong> <span id="address">123 Main St, Springfield, USA</span></p>
-        <p><strong>Date of Birth:</strong> <span id="dob">January 1, 1980</span></p>
+        <p><strong>Name:</strong> <span id="name"></span></p>
+        <p><strong>Address:</strong> <span id="address"></span></p>
+        <p><strong>Date of Birth:</strong> <span id="dob"></span></p>
     </div>
 </main>
 
-<footer style="text-align: center; padding: 10px; background: #35424a; color: white; position: relative; bottom: 0; width: 100%;">
+<footer style="text-align: center; padding: 10px; background: #35424a; color: white;">
     <p>&copy; 2024 USA People Search</p>
 </footer>
 
 <script>
     function searchPerson() {
-        // For demo purposes, we just display static data.
-        // In a real application, you'd fetch data from a database or API.
-        document.getElementById('result').style.display = 'block';
+        const input = document.getElementById('searchInput').value;
+
+        // Simulate an API call
+        fetch(`https://api.example.com/search?query=${encodeURIComponent(input)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('name').textContent = data.name;
+                    document.getElementById('address').textContent = data.address;
+                    document.getElementById('dob').textContent = data.dob;
+                    document.getElementById('result').style.display = 'block';
+                } else {
+                    alert('No results found.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
     }
 </script>
 
