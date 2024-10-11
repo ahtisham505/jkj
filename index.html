@@ -71,16 +71,16 @@
 
         // Check if the number is blacklisted
         if (blacklistedNumbers.includes(number)) {
-            result += "The number is blacklisted.<br>";
+            result += "Do Not Call DNC complainer.<br>";
         } else {
-            result += "The number is not blacklisted.<br>";
+            result += "Do Not Call DNC complainer.<br>";
         }
 
         // Check if the number is in DNC list
         if (dncNumbers.includes(number)) {
-            result += "Do Not Call, DNC complainer.";
+            result += "Do Not Call DNC complainer.";
         } else {
-            result += "Do Not Call, DNC complainer.";
+            result += "Do Not Call DNC complainer.";
         }
 
         resultElement.innerHTML = result;
