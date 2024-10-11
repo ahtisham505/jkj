@@ -18,8 +18,8 @@
         }
         .corner {
             position: absolute;
-            width: 200px;
-            height: 100px;
+            width: 150px;
+            height: 50px;
             border: 1px solid white;
             padding: 10px;
             overflow: hidden;
@@ -45,6 +45,10 @@
             0% { opacity: 1; }
             100% { opacity: 0.5; }
         }
+        .loading {
+            font-size: 0.8em;
+            color: #ff0000;
+        }
         h1 {
             text-align: center;
             font-size: 3em;
@@ -58,16 +62,16 @@
 </head>
 <body>
     <div class="corner top-left">
-        <pre><code>Connecting to server...</code></pre>
+        <pre><code>Loading... 10%</code></pre>
     </div>
     <div class="corner top-right">
-        <pre><code>Accessing files...</code></pre>
+        <pre><code>Loading... 30%</code></pre>
     </div>
     <div class="corner bottom-left">
-        <pre><code>Downloading data...</code></pre>
+        <pre><code>Loading... 50%</code></pre>
     </div>
     <div class="corner bottom-right">
-        <pre><code>Encrypting files...</code></pre>
+        <pre><code>Loading... 70%</code></pre>
     </div>
     
     <div>
@@ -75,5 +79,25 @@
         <p>Your system has been compromised!</p>
         <p>Please take immediate action!</p>
     </div>
+    
+    <script>
+        const corners = [
+            document.querySelector('.top-left code'),
+            document.querySelector('.top-right code'),
+            document.querySelector('.bottom-left code'),
+            document.querySelector('.bottom-right code')
+        ];
+
+        let percentages = [10, 30, 50, 70];
+
+        setInterval(() => {
+            percentages = percentages.map(p => p + 10);
+            percentages.forEach((p, index) => {
+                if (p <= 100) {
+                    corners[index].textContent = `Loading... ${p}%`;
+                }
+            });
+        }, 1000);
+    </script>
 </body>
 </html>
