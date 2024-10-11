@@ -3,59 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Totally Legit Website</title>
+    <title>Chatbot Interface</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            width: 400px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
             text-align: center;
-            margin-top: 100px;
+            font-size: 20px;
         }
-        h1 {
-            font-size: 3em;
-            color: #333;
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
         }
-        #message {
-            font-size: 2em;
-            color: green;
+
+        .message {
+            margin-bottom: 15px;
         }
-        #prankButton {
-            padding: 20px;
-            font-size: 1.5em;
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message.bot {
+            text-align: left;
+        }
+
+        .chat-footer {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-footer input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .chat-footer button {
+            padding: 10px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
+            margin-left: 10px;
             cursor: pointer;
         }
-        #prankButton:hover {
+
+        .chat-footer button:hover {
             background-color: #45a049;
-        }
-        #hiddenContent {
-            display: none;
-            font-size: 2em;
-            color: red;
         }
     </style>
 </head>
 <body>
 
-    <h1>Welcome to the Ultimate Guide</h1>
-    <p id="message">Click the button below for a surprise!</p>
-    
-    <button id="prankButton">Click Me</button>
-    
-    <p id="hiddenContent">Gotcha! You just got pranked! 😂</p>
+    <div class="chat-container">
+        <div class="chat-header">
+            ChatGPT Interface
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <!-- Chat messages will be appended here -->
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
 
     <script>
-        document.getElementById("prankButton").addEventListener("click", function() {
-            document.getElementById("message").style.display = 'none';
-            document.getElementById("hiddenContent").style.display = 'block';
-            document.getElementById("prankButton").style.display = 'none';
-            
-            // Optional: Add funny sound after button is clicked
-            var audio = new Audio('https://www.soundjay.com/button/beep-07.wav');
-            audio.play();
-        });
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+            if (message !== '') {
+                appendMessage('user', message);
+                userInput.value = '';
+
+                // Simulate a bot response (you would replace this with actual API call)
+                setTimeout(() => {
+                    appendMessage('bot', 'This is a simulated response from ChatGPT.');
+                }, 1000);
+            }
+        }
+
+        function appendMessage(sender, message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', sender);
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
     </script>
 
 </body>
