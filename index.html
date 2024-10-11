@@ -3,121 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catch the Ball Game</title>
+    <title>Multi Games Platform</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            text-align: center;
-            background-color: #f0f0f0;
-        }
-        canvas {
-            background-color: #87CEEB;
-            display: block;
-            margin: 20px auto;
-            border: 2px solid #000;
         }
         h1 {
             color: #333;
         }
+        .game-menu {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .game-menu button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .game-menu button:hover {
+            background-color: #45a049;
+        }
+        iframe {
+            width: 80%;
+            height: 600px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-    <h1>Catch the Ball Game</h1>
-    <canvas id="gameCanvas" width="480" height="320"></canvas>
-    <p>Use the left and right arrow keys to move the paddle and catch the falling balls!</p>
+
+    <h1>Choose a Game to Play</h1>
+
+    <div class="game-menu">
+        <button onclick="loadGame('tic-tac-toe.html')">Tic-Tac-Toe</button>
+        <button onclick="loadGame('snake.html')">Snake</button>
+        <button onclick="loadGame('memory.html')">Memory Game</button>
+    </div>
+
+    <iframe id="game-frame" src="" frameborder="0" allowfullscreen></iframe>
 
     <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-
-        // Paddle properties
-        const paddleHeight = 10;
-        const paddleWidth = 75;
-        let paddleX = (canvas.width - paddleWidth) / 2;
-
-        // Ball properties
-        let ballRadius = 10;
-        let ballX = canvas.width / 2;
-        let ballY = canvas.height - 30;
-        let ballSpeedX = 2;
-        let ballSpeedY = -2;
-
-        // Player controls
-        let rightPressed = false;
-        let leftPressed = false;
-
-        // Event listeners for key presses
-        document.addEventListener("keydown", keyDownHandler, false);
-        document.addEventListener("keyup", keyUpHandler, false);
-
-        function keyDownHandler(e) {
-            if (e.key === "Right" || e.key === "ArrowRight") {
-                rightPressed = true;
-            } else if (e.key === "Left" || e.key === "ArrowLeft") {
-                leftPressed = true;
-            }
+        function loadGame(gameUrl) {
+            document.getElementById('game-frame').src = gameUrl;
         }
-
-        function keyUpHandler(e) {
-            if (e.key === "Right" || e.key === "ArrowRight") {
-                rightPressed = false;
-            } else if (e.key === "Left" || e.key === "ArrowLeft") {
-                leftPressed = false;
-            }
-        }
-
-        // Game update function
-        function draw() {
-            // Clear the canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Draw the ball
-            ctx.beginPath();
-            ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
-            ctx.fillStyle = "#0095DD";
-            ctx.fill();
-            ctx.closePath();
-
-            // Draw the paddle
-            ctx.beginPath();
-            ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-            ctx.fillStyle = "#0095DD";
-            ctx.fill();
-            ctx.closePath();
-
-            // Ball movement logic
-            if (ballX + ballSpeedX > canvas.width - ballRadius || ballX + ballSpeedX < ballRadius) {
-                ballSpeedX = -ballSpeedX;
-            }
-            if (ballY + ballSpeedY < ballRadius) {
-                ballSpeedY = -ballSpeedY;
-            } else if (ballY + ballSpeedY > canvas.height - ballRadius) {
-                if (ballX > paddleX && ballX < paddleX + paddleWidth) {
-                    ballSpeedY = -ballSpeedY;
-                } else {
-                    // Game over condition
-                    document.location.reload();
-                    alert("Game Over! Try again.");
-                }
-            }
-
-            ballX += ballSpeedX;
-            ballY += ballSpeedY;
-
-            // Paddle movement logic
-            if (rightPressed && paddleX < canvas.width - paddleWidth) {
-                paddleX += 7;
-            } else if (leftPressed && paddleX > 0) {
-                paddleX -= 7;
-            }
-
-            requestAnimationFrame(draw);
-        }
-
-        // Start the game
-        draw();
     </script>
+
 </body>
 </html>
