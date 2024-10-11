@@ -3,94 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>You Are a Good Person</title>
+    <title>Login Page - Moving OK Button</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f8ff;
+            background-color: #f0f0f0;
         }
 
-        h1 {
-            color: #333;
-            font-size: 3rem;
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
-            margin: 20px 0;
         }
 
-        .message {
-            font-size: 1.5rem;
-            color: #4CAF50;
-            text-align: center;
-            margin-bottom: 20px;
-            max-width: 600px;
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
-        .message-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .button-container {
+            position: relative;
+            height: 50px;
         }
 
-        button {
+        .btn-ok {
             padding: 10px 20px;
-            font-size: 18px;
-            background-color: #4CAF50;
+            background-color: #28a745;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: 0.2s;
         }
 
-        button:hover {
-            background-color: #45a049;
-        }
-
-        footer {
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: #555;
+        .btn-ok:hover {
+            background-color: #218838;
         }
     </style>
 </head>
 <body>
-
-    <h1>You Are a Good Person!</h1>
-
-    <div class="message-container">
-        <div id="message" class="message">Click the button to see how amazing you are!</div>
-        <button onclick="showMessage()">Tell me more!</button>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form>
+            <input type="email" placeholder="Enter your email" required>
+            <input type="password" placeholder="Enter your password" required>
+            <div class="button-container">
+                <button class="btn-ok" id="ok-btn">OK</button>
+            </div>
+        </form>
     </div>
 
-    <footer>
-        <p>Spread kindness, be awesome, and remember: You are enough!</p>
-    </footer>
-
     <script>
-        const messages = [
-            "You have a heart of gold!",
-            "You make the world a better place just by being in it.",
-            "Your kindness is truly inspiring.",
-            "You are capable of amazing things!",
-            "The love you give is incredible.",
-            "You are stronger than you know.",
-            "You bring so much joy to those around you.",
-            "Your positivity is contagious!",
-            "You light up the room with your smile.",
-            "You make a difference in people’s lives every day."
-        ];
+        const okBtn = document.getElementById('ok-btn');
+        const container = document.querySelector('.button-container');
 
-        function showMessage() {
-            const randomIndex = Math.floor(Math.random() * messages.length);
-            document.getElementById('message').textContent = messages[randomIndex];
-        }
+        container.addEventListener('mousemove', function (e) {
+            const mouseX = e.clientX - container.getBoundingClientRect().left;
+            const mouseY = e.clientY - container.getBoundingClientRect().top;
+            const btnWidth = okBtn.offsetWidth;
+            const btnHeight = okBtn.offsetHeight;
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+
+            const distanceX = Math.abs(mouseX - okBtn.offsetLeft - btnWidth / 2);
+            const distanceY = Math.abs(mouseY - okBtn.offsetTop - btnHeight / 2);
+
+            if (distanceX < btnWidth && distanceY < btnHeight) {
+                let newX = Math.random() * (containerWidth - btnWidth);
+                let newY = Math.random() * (containerHeight - btnHeight);
+                okBtn.style.left = `${newX}px`;
+                okBtn.style.top = `${newY}px`;
+            }
+        });
     </script>
-
 </body>
 </html>
