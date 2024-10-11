@@ -3,70 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blacklist and DNC Checker</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-        input[type="text"], button {
-            padding: 10px;
-            margin: 10px;
-            font-size: 16px;
-        }
-        .result {
-            margin-top: 20px;
-        }
-    </style>
+    <title>Retrieve Owner Info</title>
 </head>
 <body>
-    <h1>Blacklist and DNC Checker</h1>
-    <p>Enter a phone number to check if it's blacklisted or on the USA DNC list.</p>
-
+    <h1>Lookup Name, Address, and Date of Birth</h1>
     <input type="text" id="phoneNumber" placeholder="Enter phone number">
-    <button onclick="checkNumber()">Check</button>
-
-    <div class="result" id="result"></div>
+    <button onclick="getInfo()">Get Info</button>
+    <div id="result"></div>
 
     <script>
-        function checkNumber() {
+        function getInfo() {
             const phoneNumber = document.getElementById('phoneNumber').value;
             if (!phoneNumber) {
-                document.getElementById('result').innerText = "Oh great, you forgot the number.";
+                document.getElementById('result').innerText = "Please enter a phone number.";
                 return;
             }
 
-            // Fake API endpoints (since I can't magically invent real APIs)
-            const blacklistApi = 'https://api.fakeblacklist.com/check';
-            const dncApi = 'https://api.fakednc.com/check';
+            const apiUrl = `https://api.retrievedata.com/lookup?number=${phoneNumber}`;
 
-            document.getElementById('result').innerText = "Checking...";
-
-            // Simulate checking both APIs
-            Promise.all([
-                fetch(`${blacklistApi}?number=${phoneNumber}`)
-                    .then(res => res.json())
-                    .catch(() => ({ blacklisted: false })), // Fake response
-
-                fetch(`${dncApi}?number=${phoneNumber}`)
-                    .then(res => res.json())
-                    .catch(() => ({ dnc: false })) // Fake response
-            ]).then(([blacklistResult, dncResult]) => {
-                let resultMessage = `Phone number: ${phoneNumber}\n`;
-                resultMessage += blacklistResult.blacklisted
-                    ? "Oh joy, this number is blacklisted. Yikes.\n"
-                    : "Phew, not blacklisted.\n";
-                resultMessage += dncResult.dnc
-                    ? "And of course, it's on the US DNC list. How original."
-                    : "Nope, not on the DNC list. You're free to annoy people.";
-
-                document.getElementById('result').innerText = resultMessage;
-            }).catch(() => {
-                document.getElementById('result').innerText = "Ugh, something went wrong. Of course.";
-            });
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const { name, address, dob } = data;
+                    document.getElementById('result').innerHTML = `
+                        <strong>Name:</strong> ${name}<br>
+                        <strong>Address:</strong> ${address}<br>
+                        <strong>Date of Birth:</strong> ${dob}
+                    `;
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = "Error retrieving data.";
+                });
         }
     </script>
 </body>
