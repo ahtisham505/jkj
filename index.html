@@ -34,12 +34,31 @@
         .game-menu button:hover {
             background-color: #45a049;
         }
-        iframe {
-            width: 80%;
-            height: 600px;
-            border: 2px solid #333;
-            border-radius: 10px;
+        .game-container {
             margin-top: 20px;
+        }
+        #ticTacToe, #snake, #memory {
+            display: none;
+        }
+        canvas {
+            border: 2px solid #333;
+        }
+        .memory-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .memory-card {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            background-color: #333;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -48,16 +67,131 @@
     <h1>Choose a Game to Play</h1>
 
     <div class="game-menu">
-        <button onclick="loadGame('tic-tac-toe.html')">Tic-Tac-Toe</button>
-        <button onclick="loadGame('snake.html')">Snake</button>
-        <button onclick="loadGame('memory.html')">Memory Game</button>
+        <button onclick="showGame('ticTacToe')">Tic-Tac-Toe</button>
+        <button onclick="showGame('snake')">Snake</button>
+        <button onclick="showGame('memory')">Memory Game</button>
     </div>
 
-    <iframe id="game-frame" src="" frameborder="0" allowfullscreen></iframe>
+    <div class="game-container">
+        <!-- Tic-Tac-Toe Game -->
+        <div id="ticTacToe">
+            <table>
+                <tr>
+                    <td onclick="makeMove(this, 0)"></td>
+                    <td onclick="makeMove(this, 1)"></td>
+                    <td onclick="makeMove(this, 2)"></td>
+                </tr>
+                <tr>
+                    <td onclick="makeMove(this, 3)"></td>
+                    <td onclick="makeMove(this, 4)"></td>
+                    <td onclick="makeMove(this, 5)"></td>
+                </tr>
+                <tr>
+                    <td onclick="makeMove(this, 6)"></td>
+                    <td onclick="makeMove(this, 7)"></td>
+                    <td onclick="makeMove(this, 8)"></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Snake Game -->
+        <div id="snake">
+            <canvas id="snakeCanvas" width="400" height="400"></canvas>
+        </div>
+
+        <!-- Memory Game -->
+        <div id="memory">
+            <div class="memory-grid">
+                <div class="memory-card" onclick="flipCard(this)">1</div>
+                <div class="memory-card" onclick="flipCard(this)">2</div>
+                <div class="memory-card" onclick="flipCard(this)">1</div>
+                <div class="memory-card" onclick="flipCard(this)">2</div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        function loadGame(gameUrl) {
-            document.getElementById('game-frame').src = gameUrl;
+        // Show the selected game
+        function showGame(gameId) {
+            document.getElementById('ticTacToe').style.display = 'none';
+            document.getElementById('snake').style.display = 'none';
+            document.getElementById('memory').style.display = 'none';
+            document.getElementById(gameId).style.display = 'block';
+
+            if (gameId === 'snake') startSnakeGame();
+        }
+
+        // Tic-Tac-Toe Logic
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        function makeMove(cell, index) {
+            if (board[index] === "") {
+                board[index] = currentPlayer;
+                cell.innerHTML = currentPlayer;
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+            }
+        }
+
+        // Snake Game Logic
+        let snakeCanvas = document.getElementById('snakeCanvas');
+        let snakeCtx = snakeCanvas.getContext('2d');
+        let snake, food, direction, snakeInterval;
+
+        function startSnakeGame() {
+            snake = [{ x: 10, y: 10 }];
+            food = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
+            direction = 'right';
+            clearInterval(snakeInterval);
+            snakeInterval = setInterval(updateSnake, 100);
+        }
+
+        function updateSnake() {
+            let head = { ...snake[0] };
+            if (direction === 'right') head.x += 1;
+            if (direction === 'left') head.x -= 1;
+            if (direction === 'up') head.y -= 1;
+            if (direction === 'down') head.y += 1;
+
+            snake.unshift(head);
+            if (head.x === food.x && head.y === food.y) {
+                food = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
+            } else {
+                snake.pop();
+            }
+
+            snakeCtx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+            snakeCtx.fillStyle = 'green';
+            snake.forEach(segment => snakeCtx.fillRect(segment.x * 20, segment.y * 20, 20, 20));
+            snakeCtx.fillStyle = 'red';
+            snakeCtx.fillRect(food.x * 20, food.y * 20, 20, 20);
+        }
+
+        window.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' && direction !== 'left') direction = 'right';
+            if (e.key === 'ArrowLeft' && direction !== 'right') direction = 'left';
+            if (e.key === 'ArrowUp' && direction !== 'down') direction = 'up';
+            if (e.key === 'ArrowDown' && direction !== 'up') direction = 'down';
+        });
+
+        // Memory Game Logic
+        let flippedCards = [];
+        function flipCard(card) {
+            card.style.backgroundColor = 'white';
+            flippedCards.push(card);
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 500);
+            }
+        }
+
+        function checkMatch() {
+            if (flippedCards[0].innerText === flippedCards[1].innerText) {
+                flippedCards[0].style.visibility = 'hidden';
+                flippedCards[1].style.visibility = 'hidden';
+            } else {
+                flippedCards[0].style.backgroundColor = '#333';
+                flippedCards[1].style.backgroundColor = '#333';
+            }
+            flippedCards = [];
         }
     </script>
 
