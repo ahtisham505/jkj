@@ -3,122 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Interface</title>
+    <title>Dodge the Falling Objects</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .chat-container {
-            width: 400px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            background-color: #f0f0f0;
         }
-
-        .chat-header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            font-size: 20px;
-        }
-
-        .chat-messages {
-            flex: 1;
-            padding: 10px;
-            overflow-y: auto;
-        }
-
-        .message {
-            margin-bottom: 15px;
-        }
-
-        .message.user {
-            text-align: right;
-        }
-
-        .message.bot {
-            text-align: left;
-        }
-
-        .chat-footer {
-            display: flex;
-            padding: 10px;
-            border-top: 1px solid #ddd;
-        }
-
-        .chat-footer input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .chat-footer button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-
-        .chat-footer button:hover {
-            background-color: #45a049;
+        canvas {
+            display: block;
+            background-color: #87CEEB;
         }
     </style>
 </head>
 <body>
 
-    <div class="chat-container">
-        <div class="chat-header">
-            ChatGPT Interface
-        </div>
-        <div class="chat-messages" id="chat-messages">
-            <!-- Chat messages will be appended here -->
-        </div>
-        <div class="chat-footer">
-            <input type="text" id="user-input" placeholder="Type a message...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
+<canvas id="gameCanvas"></canvas>
 
-    <script>
-        function sendMessage() {
-            const userInput = document.getElementById('user-input');
-            const message = userInput.value.trim();
-            if (message !== '') {
-                appendMessage('user', message);
-                userInput.value = '';
+<script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
 
-                // Simulate a bot response (you would replace this with actual API call)
-                setTimeout(() => {
-                    appendMessage('bot', 'FUCK OFF DON'T ASK ME A QUESTION GET OUT OF HERE .');
-                }, 1000);
+    // Set canvas size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Player object
+    const player = {
+        x: canvas.width / 2 - 25,
+        y: canvas.height - 50,
+        width: 50,
+        height: 50,
+        speed: 10,
+        dx: 0
+    };
+
+    // Falling object
+    const objects = [];
+    const objectSize = 30;
+    const objectSpeed = 3;
+
+    // Handle keyboard input
+    function movePlayer(e) {
+        if (e.key === "ArrowRight" || e.key === "Right") {
+            player.dx = player.speed;
+        } else if (e.key === "ArrowLeft" || e.key === "Left") {
+            player.dx = -player.speed;
+        }
+    }
+
+    function stopPlayer(e) {
+        if (e.key === "ArrowRight" || e.key === "Right" || e.key === "ArrowLeft" || e.key === "Left") {
+            player.dx = 0;
+        }
+    }
+
+    // Draw player
+    function drawPlayer() {
+        ctx.fillStyle = "#FF4500";
+        ctx.fillRect(player.x, player.y, player.width, player.height);
+    }
+
+    // Draw falling object
+    function drawObjects() {
+        ctx.fillStyle = "#008080";
+        objects.forEach((obj) => {
+            ctx.fillRect(obj.x, obj.y, objectSize, objectSize);
+            obj.y += objectSpeed;
+
+            // Check for collision
+            if (obj.y + objectSize > player.y &&
+                obj.y < player.y + player.height &&
+                obj.x < player.x + player.width &&
+                obj.x + objectSize > player.x) {
+                alert("Game Over!");
+                document.location.reload();
             }
-        }
 
-        function appendMessage(sender, message) {
-            const chatMessages = document.getElementById('chat-messages');
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message', sender);
-            messageElement.textContent = message;
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            // Remove object if it goes out of bounds
+            if (obj.y > canvas.height) {
+                objects.splice(objects.indexOf(obj), 1);
+            }
+        });
+    }
+
+    // Update player position
+    function updatePlayer() {
+        player.x += player.dx;
+
+        // Prevent player from going out of bounds
+        if (player.x < 0) player.x = 0;
+        if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
+    }
+
+    // Spawn new objects
+    function spawnObjects() {
+        if (Math.random() < 0.02) {
+            const x = Math.random() * (canvas.width - objectSize);
+            objects.push({ x: x, y: 0 });
         }
-    </script>
+    }
+
+    // Clear canvas
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Game loop
+    function gameLoop() {
+        clearCanvas();
+        drawPlayer();
+        drawObjects();
+        updatePlayer();
+        spawnObjects();
+        requestAnimationFrame(gameLoop);
+    }
+
+    // Event listeners
+    document.addEventListener("keydown", movePlayer);
+    document.addEventListener("keyup", stopPlayer);
+
+    // Start the game loop
+    gameLoop();
+
+</script>
 
 </body>
 </html>
