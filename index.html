@@ -3,161 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Game</title>
+    <title>Blacklist and DNC Checker</title>
     <style>
         body {
-            margin: 0;
-            overflow: hidden;
-            background-color: #f4f4f4;
-        }
-        canvas {
-            display: block;
-            background-color: #333;
-        }
-        #game-over {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 30px;
             font-family: Arial, sans-serif;
-            color: white;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        input[type="text"], button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+    <h1>Blacklist and DNC Checker</h1>
+    <p>Enter a phone number to check if it's blacklisted or on the USA DNC list.</p>
 
-<canvas id="gameCanvas"></canvas>
-<div id="game-over">Game Over! Refresh to restart</div>
+    <input type="text" id="phoneNumber" placeholder="Enter phone number">
+    <button onclick="checkNumber()">Check</button>
 
-<script>
-    // Game setup
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    <div class="result" id="result"></div>
 
-    // Player Car
-    const car = {
-        x: canvas.width / 2 - 25,
-        y: canvas.height - 100,
-        width: 50,
-        height: 100,
-        color: 'blue',
-        speed: 5,
-        dx: 0
-    };
-
-    // Obstacles
-    let obstacles = [];
-    let gameOver = false;
-    let obstacleSpeed = 3;
-
-    function createObstacle() {
-        const width = Math.random() * 100 + 50;
-        const x = Math.random() * (canvas.width - width);
-        obstacles.push({
-            x: x,
-            y: -100,
-            width: width,
-            height: 100,
-            color: 'red'
-        });
-    }
-
-    function drawCar() {
-        ctx.fillStyle = car.color;
-        ctx.fillRect(car.x, car.y, car.width, car.height);
-    }
-
-    function drawObstacles() {
-        obstacles.forEach(obstacle => {
-            ctx.fillStyle = obstacle.color;
-            ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-        });
-    }
-
-    function updateObstacles() {
-        obstacles.forEach(obstacle => {
-            obstacle.y += obstacleSpeed;
-
-            // Collision detection
-            if (car.x < obstacle.x + obstacle.width &&
-                car.x + car.width > obstacle.x &&
-                car.y < obstacle.y + obstacle.height &&
-                car.y + car.height > obstacle.y) {
-                endGame();
+    <script>
+        function checkNumber() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (!phoneNumber) {
+                document.getElementById('result').innerText = "Oh great, you forgot the number.";
+                return;
             }
 
-            // Remove off-screen obstacles
-            if (obstacle.y > canvas.height) {
-                obstacles = obstacles.filter(o => o !== obstacle);
-            }
-        });
-    }
+            // Fake API endpoints (since I can't magically invent real APIs)
+            const blacklistApi = 'https://api.fakeblacklist.com/check';
+            const dncApi = 'https://api.fakednc.com/check';
 
-    function endGame() {
-        gameOver = true;
-        document.getElementById('game-over').style.display = 'block';
-        cancelAnimationFrame(animationId);
-    }
+            document.getElementById('result').innerText = "Checking...";
 
-    function updateCar() {
-        car.x += car.dx;
+            // Simulate checking both APIs
+            Promise.all([
+                fetch(`${blacklistApi}?number=${phoneNumber}`)
+                    .then(res => res.json())
+                    .catch(() => ({ blacklisted: false })), // Fake response
 
-        // Boundary check
-        if (car.x < 0) car.x = 0;
-        if (car.x + car.width > canvas.width) car.x = canvas.width - car.width;
-    }
+                fetch(`${dncApi}?number=${phoneNumber}`)
+                    .then(res => res.json())
+                    .catch(() => ({ dnc: false })) // Fake response
+            ]).then(([blacklistResult, dncResult]) => {
+                let resultMessage = `Phone number: ${phoneNumber}\n`;
+                resultMessage += blacklistResult.blacklisted
+                    ? "Oh joy, this number is blacklisted. Yikes.\n"
+                    : "Phew, not blacklisted.\n";
+                resultMessage += dncResult.dnc
+                    ? "And of course, it's on the US DNC list. How original."
+                    : "Nope, not on the DNC list. You're free to annoy people.";
 
-    function clearCanvas() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    function updateGame() {
-        clearCanvas();
-        drawCar();
-        drawObstacles();
-        updateObstacles();
-        updateCar();
-        
-        if (!gameOver) {
-            animationId = requestAnimationFrame(updateGame);
+                document.getElementById('result').innerText = resultMessage;
+            }).catch(() => {
+                document.getElementById('result').innerText = "Ugh, something went wrong. Of course.";
+            });
         }
-    }
-
-    function moveRight() {
-        car.dx = car.speed;
-    }
-
-    function moveLeft() {
-        car.dx = -car.speed;
-    }
-
-    function stopCar() {
-        car.dx = 0;
-    }
-
-    // Key controls
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') {
-            moveRight();
-        } else if (e.key === 'ArrowLeft') {
-            moveLeft();
-        }
-    });
-
-    document.addEventListener('keyup', (e) => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-            stopCar();
-        }
-    });
-
-    // Game loop
-    setInterval(createObstacle, 2000);
-    updateGame();
-</script>
-
+    </script>
 </body>
 </html>
