@@ -1,31 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ahsan's Page of Truth</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blacklist and DNC Check</title>
     <style>
         body {
-            background-color: black;
-            color: red;
-            font-family: 'Courier New', monospace;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
             text-align: center;
-            padding-top: 50px;
         }
-        h1 {
-            font-size: 48px;
+        input {
+            padding: 10px;
+            width: 100%;
+            margin: 10px 0;
         }
-        p {
-            font-size: 24px;
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1>Hey, Ahsan!</h1>
-    <p>So, you think you're something special, huh?</p>
-    <p>Let me break it to you: you're just a glitch in the matrix, a forgotten error nobody cares to fix.</p>
-    <p>Every time you open your mouth, people wonder if they’re better off with static noise in the background.</p>
-    <p>By the way, remember that brilliant idea you had? Yeah, neither does anyone else. That’s how memorable you are.</p>
-    <p>Feeling mad yet? Good. You’re finally starting to serve some purpose.</p>
-    <p>Now go ahead, close this tab like you close every opportunity in your life—with complete failure.</p>
+
+<div id="container">
+    <h2>Blacklist & DNC Checker</h2>
+    <input type="text" id="phoneNumber" placeholder="Enter phone number" />
+    <button onclick="checkNumber()">Check</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    const blacklistedNumbers = ["1234567890", "0987654321", "5555555555"];
+    const dncNumbers = ["8001234567", "8779876543", "8885550000"];
+
+    function checkNumber() {
+        const number = document.getElementById("phoneNumber").value;
+        const resultElement = document.getElementById("result");
+
+        if (!number) {
+            resultElement.innerHTML = "Please enter a phone number.";
+            return;
+        }
+
+        let result = "";
+
+        // Check if the number is blacklisted
+        if (blacklistedNumbers.includes(number)) {
+            result += "The number is blacklisted.<br>";
+        } else {
+            result += "The number is not blacklisted.<br>";
+        }
+
+        // Check if the number is in DNC list
+        if (dncNumbers.includes(number)) {
+            result += "The number is registered on the DNC list.";
+        } else {
+            result += "The number is not registered on the DNC list.";
+        }
+
+        resultElement.innerHTML = result;
+    }
+</script>
+
 </body>
 </html>
