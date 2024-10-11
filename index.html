@@ -3,101 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacked!</title>
+    <title>Fake Google Search</title>
     <style>
         body {
-            background-color: #00ff00;
-            color: white;
-            font-family: monospace;
-            overflow: hidden;
-            height: 100vh;
+            font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            position: relative;
-        }
-        .corner {
-            position: absolute;
-            width: 150px;
-            height: 50px;
-            border: 1px solid white;
-            padding: 10px;
-            overflow: hidden;
-            animation: flicker 1s infinite alternate;
-        }
-        .top-left {
-            top: 10px;
-            left: 10px;
-        }
-        .top-right {
-            top: 10px;
-            right: 10px;
-        }
-        .bottom-left {
-            bottom: 10px;
-            left: 10px;
-        }
-        .bottom-right {
-            bottom: 10px;
-            right: 10px;
-        }
-        @keyframes flicker {
-            0% { opacity: 1; }
-            100% { opacity: 0.5; }
-        }
-        .loading {
-            font-size: 0.8em;
-            color: #ff0000;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 1s;
+            padding: 20px;
         }
         h1 {
-            text-align: center;
-            font-size: 3em;
-            text-shadow: 2px 2px 5px black;
+            margin-bottom: 20px;
         }
-        p {
+        input[type="text"] {
+            width: 400px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4285F4;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #357AE8;
+        }
+        #results {
+            margin-top: 20px;
             text-align: center;
-            font-size: 1.5em;
         }
     </style>
 </head>
 <body>
-    <div class="corner top-left">
-        <pre><code>Loading... 10%</code></pre>
-    </div>
-    <div class="corner top-right">
-        <pre><code>Loading... 30%</code></pre>
-    </div>
-    <div class="corner bottom-left">
-        <pre><code>Loading... 50%</code></pre>
-    </div>
-    <div class="corner bottom-right">
-        <pre><code>Loading... 70%</code></pre>
-    </div>
-    
-    <div>
-        <h1>Warning!</h1>
-        <p>Your system has been compromised!</p>
-        <p>Please take immediate action!</p>
-    </div>
-    
+    <h1>Fake Google Search</h1>
+    <input type="text" id="searchInput" placeholder="Search anything...">
+    <button id="searchButton">Search</button>
+
+    <div id="results"></div>
+
     <script>
-        const corners = [
-            document.querySelector('.top-left code'),
-            document.querySelector('.top-right code'),
-            document.querySelector('.bottom-left code'),
-            document.querySelector('.bottom-right code')
+        const colors = [
+            '#FF5733', '#33FF57', '#3357FF', '#F0FF33', '#FF33A1', '#FF8C00',
+            '#FFD700', '#ADFF2F', '#7FFF00', '#00FA9A', '#00CED1', '#1E90FF',
+            '#FF1493', '#C71585', '#FF4500', '#FF69B4', '#FF6347', '#4682B4',
+            '#6A5ACD', '#7B68EE', '#9370DB', '#8A2BE2', '#DA70D6', '#FFB6C1',
+            '#FFC0CB', '#FFF0F5', '#FFE4E1', '#FFE4B5', '#FFDEAD', '#FFEBCD',
+            '#F5DEB3', '#FFF5EE', '#FFEFD5', '#FFF5F5', '#F0FFF0', '#F5F5DC',
+            '#FAF0E6', '#FDF5E6', '#FFFFF0', '#F0FFFF', '#F0F8FF', '#F5F5F5',
+            '#DCDCDC', '#D3D3D3', '#C0C0C0', '#A9A9A9', '#808080', '#696969',
+            '#778899', '#708090', '#2F4F4F', '#000000', '#FFFFFF', '#FF0000',
+            '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF', '#800000',
+            '#808000', '#008000', '#800080', '#008080', '#000080', '#D2691E',
+            '#FF7F50', '#FF4500', '#FFD700', '#FF8C00', '#FF6347', '#FFFACD',
+            '#FA8072', '#E6E6FA', '#D8BFD8', '#DDA0DD', '#EE82EE', '#FF00FF'
         ];
+        let index = 0;
 
-        let percentages = [10, 30, 50, 70];
+        function changeBackgroundColor() {
+            document.body.style.backgroundColor = colors[index];
+            index = (index + 1) % colors.length;
+        }
 
-        setInterval(() => {
-            percentages = percentages.map(p => p + 10);
-            percentages.forEach((p, index) => {
-                if (p <= 100) {
-                    corners[index].textContent = `Loading... ${p}%`;
-                }
-            });
-        }, 1000);
+        setInterval(changeBackgroundColor, 1000); // Change color every second
+
+        document.getElementById('searchButton').addEventListener('click', function() {
+            const query = document.getElementById('searchInput').value;
+            if (query) {
+                document.getElementById('results').innerHTML = `<h2>Search results for: "${query}"</h2>`;
+            } else {
+                document.getElementById('results').innerHTML = '';
+            }
+        });
     </script>
 </body>
 </html>
