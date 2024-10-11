@@ -3,195 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi Games Platform</title>
+    <title>You Are a Good Person</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            color: #333;
-        }
-        .game-menu {
             display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .game-menu button {
-            padding: 10px 20px;
-            margin: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .game-menu button:hover {
-            background-color: #45a049;
-        }
-        .game-container {
-            margin-top: 20px;
-        }
-        #ticTacToe, #snake, #memory {
-            display: none;
-        }
-        canvas {
-            border: 2px solid #333;
-        }
-        .memory-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .memory-card {
-            width: 100px;
-            height: 100px;
-            margin: 10px;
-            background-color: #333;
-            color: white;
-            font-size: 24px;
-            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 3rem;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .message {
+            font-size: 1.5rem;
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #555;
         }
     </style>
 </head>
 <body>
 
-    <h1>Choose a Game to Play</h1>
+    <h1>You Are a Good Person!</h1>
 
-    <div class="game-menu">
-        <button onclick="showGame('ticTacToe')">Tic-Tac-Toe</button>
-        <button onclick="showGame('snake')">Snake</button>
-        <button onclick="showGame('memory')">Memory Game</button>
+    <div class="message-container">
+        <div id="message" class="message">Click the button to see how amazing you are!</div>
+        <button onclick="showMessage()">Tell me more!</button>
     </div>
 
-    <div class="game-container">
-        <!-- Tic-Tac-Toe Game -->
-        <div id="ticTacToe">
-            <table>
-                <tr>
-                    <td onclick="makeMove(this, 0)"></td>
-                    <td onclick="makeMove(this, 1)"></td>
-                    <td onclick="makeMove(this, 2)"></td>
-                </tr>
-                <tr>
-                    <td onclick="makeMove(this, 3)"></td>
-                    <td onclick="makeMove(this, 4)"></td>
-                    <td onclick="makeMove(this, 5)"></td>
-                </tr>
-                <tr>
-                    <td onclick="makeMove(this, 6)"></td>
-                    <td onclick="makeMove(this, 7)"></td>
-                    <td onclick="makeMove(this, 8)"></td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Snake Game -->
-        <div id="snake">
-            <canvas id="snakeCanvas" width="400" height="400"></canvas>
-        </div>
-
-        <!-- Memory Game -->
-        <div id="memory">
-            <div class="memory-grid">
-                <div class="memory-card" onclick="flipCard(this)">1</div>
-                <div class="memory-card" onclick="flipCard(this)">2</div>
-                <div class="memory-card" onclick="flipCard(this)">1</div>
-                <div class="memory-card" onclick="flipCard(this)">2</div>
-            </div>
-        </div>
-    </div>
+    <footer>
+        <p>Spread kindness, be awesome, and remember: You are enough!</p>
+    </footer>
 
     <script>
-        // Show the selected game
-        function showGame(gameId) {
-            document.getElementById('ticTacToe').style.display = 'none';
-            document.getElementById('snake').style.display = 'none';
-            document.getElementById('memory').style.display = 'none';
-            document.getElementById(gameId).style.display = 'block';
+        const messages = [
+            "You have a heart of gold!",
+            "You make the world a better place just by being in it.",
+            "Your kindness is truly inspiring.",
+            "You are capable of amazing things!",
+            "The love you give is incredible.",
+            "You are stronger than you know.",
+            "You bring so much joy to those around you.",
+            "Your positivity is contagious!",
+            "You light up the room with your smile.",
+            "You make a difference in people’s lives every day."
+        ];
 
-            if (gameId === 'snake') startSnakeGame();
-        }
-
-        // Tic-Tac-Toe Logic
-        let board = ["", "", "", "", "", "", "", "", ""];
-        let currentPlayer = "X";
-        function makeMove(cell, index) {
-            if (board[index] === "") {
-                board[index] = currentPlayer;
-                cell.innerHTML = currentPlayer;
-                currentPlayer = currentPlayer === "X" ? "O" : "X";
-            }
-        }
-
-        // Snake Game Logic
-        let snakeCanvas = document.getElementById('snakeCanvas');
-        let snakeCtx = snakeCanvas.getContext('2d');
-        let snake, food, direction, snakeInterval;
-
-        function startSnakeGame() {
-            snake = [{ x: 10, y: 10 }];
-            food = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
-            direction = 'right';
-            clearInterval(snakeInterval);
-            snakeInterval = setInterval(updateSnake, 100);
-        }
-
-        function updateSnake() {
-            let head = { ...snake[0] };
-            if (direction === 'right') head.x += 1;
-            if (direction === 'left') head.x -= 1;
-            if (direction === 'up') head.y -= 1;
-            if (direction === 'down') head.y += 1;
-
-            snake.unshift(head);
-            if (head.x === food.x && head.y === food.y) {
-                food = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
-            } else {
-                snake.pop();
-            }
-
-            snakeCtx.clearRect(0, 0, snakeCanvas.width, snakeCanvas.height);
-            snakeCtx.fillStyle = 'green';
-            snake.forEach(segment => snakeCtx.fillRect(segment.x * 20, segment.y * 20, 20, 20));
-            snakeCtx.fillStyle = 'red';
-            snakeCtx.fillRect(food.x * 20, food.y * 20, 20, 20);
-        }
-
-        window.addEventListener('keydown', e => {
-            if (e.key === 'ArrowRight' && direction !== 'left') direction = 'right';
-            if (e.key === 'ArrowLeft' && direction !== 'right') direction = 'left';
-            if (e.key === 'ArrowUp' && direction !== 'down') direction = 'up';
-            if (e.key === 'ArrowDown' && direction !== 'up') direction = 'down';
-        });
-
-        // Memory Game Logic
-        let flippedCards = [];
-        function flipCard(card) {
-            card.style.backgroundColor = 'white';
-            flippedCards.push(card);
-            if (flippedCards.length === 2) {
-                setTimeout(checkMatch, 500);
-            }
-        }
-
-        function checkMatch() {
-            if (flippedCards[0].innerText === flippedCards[1].innerText) {
-                flippedCards[0].style.visibility = 'hidden';
-                flippedCards[1].style.visibility = 'hidden';
-            } else {
-                flippedCards[0].style.backgroundColor = '#333';
-                flippedCards[1].style.backgroundColor = '#333';
-            }
-            flippedCards = [];
+        function showMessage() {
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            document.getElementById('message').textContent = messages[randomIndex];
         }
     </script>
 
