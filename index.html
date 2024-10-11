@@ -3,88 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blacklist and DNC Check</title>
+    <title>Car Game</title>
     <style>
         body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f4f4f4;
+        }
+        canvas {
+            display: block;
+            background-color: #333;
+        }
+        #game-over {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        #container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center;
-        }
-        input {
-            padding: 10px;
-            width: 100%;
-            margin: 10px 0;
-        }
-        button {
-            padding: 10px;
-            width: 100%;
-            background-color: #4CAF50;
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        #result {
-            margin-top: 20px;
-            font-size: 16px;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-<div id="container">
-    <h2>Blacklist & DNC Checker</h2>
-    <input type="text" id="phoneNumber" placeholder="Enter phone number" />
-    <button onclick="checkNumber()">Check</button>
-    <div id="result"></div>
-</div>
+<canvas id="gameCanvas"></canvas>
+<div id="game-over">Game Over! Refresh to restart</div>
 
 <script>
-    const blacklistedNumbers = ["1234567890", "0987654321", "5555555555"];
-    const dncNumbers = ["8001234567", "8779876543", "8885550000"];
+    // Game setup
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    function checkNumber() {
-        const number = document.getElementById("phoneNumber").value;
-        const resultElement = document.getElementById("result");
+    // Player Car
+    const car = {
+        x: canvas.width / 2 - 25,
+        y: canvas.height - 100,
+        width: 50,
+        height: 100,
+        color: 'blue',
+        speed: 5,
+        dx: 0
+    };
 
-        if (!number) {
-            resultElement.innerHTML = "Please enter a phone number.";
-            return;
-        }
+    // Obstacles
+    let obstacles = [];
+    let gameOver = false;
+    let obstacleSpeed = 3;
 
-        let result = "";
-
-        // Check if the number is blacklisted
-        if (blacklistedNumbers.includes(number)) {
-            result += "Do Not Call DNC complainer.<br>";
-        } else {
-            result += "Do Not Call DNC complainer.<br>";
-        }
-
-        // Check if the number is in DNC list
-        if (dncNumbers.includes(number)) {
-            result += "Do Not Call DNC complainer.";
-        } else {
-            result += "Do Not Call DNC complainer.";
-        }
-
-        resultElement.innerHTML = result;
+    function createObstacle() {
+        const width = Math.random() * 100 + 50;
+        const x = Math.random() * (canvas.width - width);
+        obstacles.push({
+            x: x,
+            y: -100,
+            width: width,
+            height: 100,
+            color: 'red'
+        });
     }
+
+    function drawCar() {
+        ctx.fillStyle = car.color;
+        ctx.fillRect(car.x, car.y, car.width, car.height);
+    }
+
+    function drawObstacles() {
+        obstacles.forEach(obstacle => {
+            ctx.fillStyle = obstacle.color;
+            ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+        });
+    }
+
+    function updateObstacles() {
+        obstacles.forEach(obstacle => {
+            obstacle.y += obstacleSpeed;
+
+            // Collision detection
+            if (car.x < obstacle.x + obstacle.width &&
+                car.x + car.width > obstacle.x &&
+                car.y < obstacle.y + obstacle.height &&
+                car.y + car.height > obstacle.y) {
+                endGame();
+            }
+
+            // Remove off-screen obstacles
+            if (obstacle.y > canvas.height) {
+                obstacles = obstacles.filter(o => o !== obstacle);
+            }
+        });
+    }
+
+    function endGame() {
+        gameOver = true;
+        document.getElementById('game-over').style.display = 'block';
+        cancelAnimationFrame(animationId);
+    }
+
+    function updateCar() {
+        car.x += car.dx;
+
+        // Boundary check
+        if (car.x < 0) car.x = 0;
+        if (car.x + car.width > canvas.width) car.x = canvas.width - car.width;
+    }
+
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function updateGame() {
+        clearCanvas();
+        drawCar();
+        drawObstacles();
+        updateObstacles();
+        updateCar();
+        
+        if (!gameOver) {
+            animationId = requestAnimationFrame(updateGame);
+        }
+    }
+
+    function moveRight() {
+        car.dx = car.speed;
+    }
+
+    function moveLeft() {
+        car.dx = -car.speed;
+    }
+
+    function stopCar() {
+        car.dx = 0;
+    }
+
+    // Key controls
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+            moveRight();
+        } else if (e.key === 'ArrowLeft') {
+            moveLeft();
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+            stopCar();
+        }
+    });
+
+    // Game loop
+    setInterval(createObstacle, 2000);
+    updateGame();
 </script>
 
 </body>
