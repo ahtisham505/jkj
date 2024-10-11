@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retrieve Owner Info</title>
+    <title>Phone Number Info Lookup</title>
 </head>
 <body>
-    <h1>Lookup Name, Address, and Date of Birth</h1>
+    <h1>Retrieve Personal Information</h1>
+    <p>Enter a phone number to retrieve the owner's name, address, and date of birth.</p>
+    
     <input type="text" id="phoneNumber" placeholder="Enter phone number">
-    <button onclick="getInfo()">Get Info</button>
+    <button onclick="lookupInfo()">Lookup Information</button>
+    
     <div id="result"></div>
-
+    
     <script>
-        function getInfo() {
+        function lookupInfo() {
             const phoneNumber = document.getElementById('phoneNumber').value;
             if (!phoneNumber) {
                 document.getElementById('result').innerText = "Please enter a phone number.";
