@@ -3,66 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Chess Board</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Simple Website</title>
+    
+    <!-- Basic styling for a clean look -->
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
-        .chess-board {
-            width: 320px;
-            height: 320px;
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            grid-template-rows: repeat(8, 1fr);
-            border: 4px solid #333;
+        body {
+            line-height: 1.6;
         }
 
-        .chess-board div {
-            width: 100%;
-            height: 100%;
+        /* Header styling */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
         }
 
-        .white {
-            background-color: #f0d9b5;
+        nav {
+            margin: 20px 0;
+            text-align: center;
         }
 
-        .black {
-            background-color: #b58863;
+        nav a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            margin: 0 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+        }
+
+        /* Main content area */
+        main {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        section {
+            margin: 20px 0;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="chess-board">
-        <!-- Row 1 -->
-        <div class="white"></div><div class="black"></div><div class="white"></div><div class="black"></div>
-        <div class="white"></div><div class="black"></div><div class="white"></div><div class="black"></div>
-        <!-- Row 2 -->
-        <div class="black"></div><div class="white"></div><div class="black"></div><div class="white"></div>
-        <div class="black"></div><div class="white"></div><div class="black"></div><div class="white"></div>
-        <!-- Row 3 -->
-        <div class="white"></div><div class="black"></div><div class="white"></div><div class="black"></div>
-        <div class="white"></div><div class="black"></div><div class="white"></div><div class="black"></div>
-        <!-- Row 4 -->
-        <div class="black"></div><div class="white"></div><div class="black"></div><div class="white"></div>
-        <div class="black"></div><div class="white"></div><div class="black"></div><div class="white"></div>
-        <!-- Row 5 -->
-        <div class="white"></div><div class="black"></div><div class="white"></div><div class="black"></div>
-        <div class="white"></div><div class="black"></div><div class="white"></div><div class="black"></div>
-        <!-- Row 6 -->
-        <div class="black"></div><div class="white"></div><div class="black"></div><div class="white"></div>
-        <div class="black"></div><div class="white"></div><div class="black"></div><div class="white"></div>
-        <!-- Row 7 -->
-        <div class="white"></div><div class="black"></div><div class="white"></div><div class="black"></div>
-        <div class="white"></div><div class="black"></div><div class="white"></div><div class="black"></div>
-        <!-- Row 8 -->
-        <div class="black"></div><div class="white"></div><div class="black"></div><div class="white"></div>
-        <div class="black"></div><div class="white"></div><div class="black"></div><div class="white"></div>
-    </div>
+    <!-- Header -->
+    <header>
+        <h1>Welcome to My Simple Website</h1>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section>
+            <h2>About Us</h2>
+            <p>This is a simple website template created using only HTML. It's minimalistic, responsive, and clean.</p>
+        </section>
+
+        <section>
+            <h2>Our Services</h2>
+            <p>We offer web design, development, and digital marketing services to help you succeed online.</p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 My Simple Website. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
