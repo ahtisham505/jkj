@@ -1,43 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Number Info Lookup</title>
-</head>
-<body>
-    <h1>Retrieve Personal Information</h1>
-    <p>Enter a phone number to retrieve the owner's name, address, and date of birth.</p>
-    
-    <input type="text" id="phoneNumber" placeholder="Enter phone number">
-    <button onclick="lookupInfo()">Lookup Information</button>
-    
-    <div id="result"></div>
-    
-    <script>
-        function lookupInfo() {
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            if (!phoneNumber) {
-                document.getElementById('result').innerText = "Please enter a phone number.";
-                return;
-            }
+import json
 
-            const apiUrl = `https://api.retrievedata.com/lookup?number=${phoneNumber}`;
+# See https://github.com/peopledatalabs/peopledatalabs-python
+from peopledatalabs import PDLPY
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const { name, address, dob } = data;
-                    document.getElementById('result').innerHTML = `
-                        <strong>Name:</strong> ${name}<br>
-                        <strong>Address:</strong> ${address}<br>
-                        <strong>Date of Birth:</strong> ${dob}
-                    `;
-                })
-                .catch(error => {
-                    document.getElementById('result').innerText = "Error retrieving data.";
-                });
-        }
-    </script>
-</body>
-</html>
+# Create a client, specifying your API key
+CLIENT = PDLPY(
+    api_key="YOUR API KEY",
+)
+
+# Create an Elasticsearch query
+ES_QUERY = {
+  'query': {
+    'bool': {
+        'must': [
+            {'term': {'location_country': "mexico"}},
+            {'term': {'job_title_role': "health"}},
+            {'exists': {'field': "phone_numbers"}}
+      ]
+    }
+  }
+}
+
+# Create a parameters JSON object
+PARAMS = {
+  'query': ES_QUERY,
+  'size': 10,
+  'pretty': True
+}
+
+# Pass the parameters object to the Person Search API
+response = CLIENT.person.search(**PARAMS).json()
+
+# Check for successful response
+if response["status"] == 200:
+  data = response['data']
+  # Write out each profile found to file
+  with open("my_pdl_search.jsonl", "w") as out:
+    for record in data:
+      out.write(json.dumps(record) + "\n")
+  print(f"Successfully grabbed {len(data)} records from PDL.")
+  print(f"{response['total']} total PDL records exist matching this query.")
+else:
+  print("NOTE: The carrier pigeons lost motivation in flight. See error and try again.")
+  print("Error:", response)
