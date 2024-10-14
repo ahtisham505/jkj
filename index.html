@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ben 10 Background</title>
+    <title>Ben 10 Background Video</title>
     <style>
         body, html {
             height: 100%;
@@ -14,21 +14,19 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .background {
+        .background-video {
             position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
             z-index: -1;
-            animation: change 10s infinite;
-        }
-        @keyframes change {
-            0% { background-image: url('https://www.everymanracing.co.uk/wp-content/uploads/2024/07/0112-corvette-zr1-first-look-thumbnail-1920x1080-1.jpg'); }
-            33% { background-image: url('https://s1.cdn.autoevolution.com/images/news/rendering-2025-chevrolet-corvette-zr1-gets-the-widebody-treatment-and-2000-hp-238111_1.jpg'); }
-            66% { background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTcQTO9NJgn8ZDseHJnm4JJgUVDe-WwRhDIw&s'); }
-            100% { background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtcexzcwMF2dyCfC2dU36bfNQB2xs8kATGnQ&s'); }
+            transform: translate(-50%, -50%);
         }
         .container {
             padding: 20px;
@@ -46,7 +44,10 @@
     </style>
 </head>
 <body>
-    <div class="background"></div>
+    <video class="background-video" autoplay loop muted>
+        <source src="https://www.google.com/search?q=car+race+video+status+whtasapp&oq=car+race+video+status+whtasapp&aqs=chrome..69i57j0i8i13i30j0i512i546l2.18328j0j7&sourceid=chrome&ie=UTF-8#" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <div class="container">
         <h1>Welcome to My Page!</h1>
         <p>Click the link below to visit People Search:</p>
