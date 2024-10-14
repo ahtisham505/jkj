@@ -2,88 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google</title>
+    <title>Stylish Text Creator</title>
     <style>
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
-            margin: 0;
-            transition: background-color 1s;
-            padding: 20px;
+            transition: background-color 1s ease;
         }
-        h1 {
-            margin-bottom: 20px;
+        #container {
+            text-align: center;
         }
-        input[type="text"] {
-            width: 400px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
+        #text {
+            font-size: 36px;
+            font-weight: bold;
+            transition: font-size 0.5s ease, font-style 0.5s ease;
+        }
+        #ehtisham {
+            margin-top: 20px;
+            font-size: 24px;
         }
         button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            background-color: #4285F4;
-            color: white;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #357AE8;
-        }
-        #results {
+            padding: 10px 20px;
+            font-size: 16px;
             margin-top: 20px;
-            text-align: center;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>Fake Google Search</h1>
-    <input type="text" id="searchInput" placeholder="Search anything...">
-    <button id="searchButton">Search</button>
 
-    <div id="results"></div>
+    <div id="container">
+        <div id="text">Simple Text</div>
+        <button onclick="changeStyle()">Make it Stylish</button>
+        <div id="ehtisham">EHTISHAM</div>
+    </div>
 
     <script>
         const colors = [
-            '#FF5733', '#33FF57', '#3357FF', '#F0FF33', '#FF33A1', '#FF8C00',
-            '#FFD700', '#ADFF2F', '#7FFF00', '#00FA9A', '#00CED1', '#1E90FF',
-            '#FF1493', '#C71585', '#FF4500', '#FF69B4', '#FF6347', '#4682B4',
-            '#6A5ACD', '#7B68EE', '#9370DB', '#8A2BE2', '#DA70D6', '#FFB6C1',
-            '#FFC0CB', '#FFF0F5', '#FFE4E1', '#FFE4B5', '#FFDEAD', '#FFEBCD',
-            '#F5DEB3', '#FFF5EE', '#FFEFD5', '#FFF5F5', '#F0FFF0', '#F5F5DC',
-            '#FAF0E6', '#FDF5E6', '#FFFFF0', '#F0FFFF', '#F0F8FF', '#F5F5F5',
-            '#DCDCDC', '#D3D3D3', '#C0C0C0', '#A9A9A9', '#808080', '#696969',
-            '#778899', '#708090', '#2F4F4F', '#000000', '#FFFFFF', '#FF0000',
-            '#00FF00', '#0000FF', '#FFFF00', '#00FFFF', '#FF00FF', '#800000',
-            '#808000', '#008000', '#800080', '#008080', '#000080', '#D2691E',
-            '#FF7F50', '#FF4500', '#FFD700', '#FF8C00', '#FF6347', '#FFFACD',
-            '#FA8072', '#E6E6FA', '#D8BFD8', '#DDA0DD', '#EE82EE', '#FF00FF'
+            '#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#33FFF3', '#FF8C33', '#8C33FF', '#33FF8C', '#FF3333', 
+            '#33FFCC', '#5733FF', '#FFB733', '#33D4FF', '#FF3380', '#3380FF', '#80FF33', '#8033FF', '#33FFB7', 
+            '#FF6F33', '#33FFD4', '#6FFF33', '#FF33D4', '#FFD433', '#33A8FF', '#33FFA8', '#A833FF', '#FF338C', 
+            '#338CFF', '#8CFF33', '#3388FF', '#FF33F0', '#33FFC4', '#FF334D', '#4DFF33', '#FF7A33', '#33FF4D', 
+            '#FF9C33', '#FF3366', '#3366FF', '#66FF33', '#FFDA33', '#33FFDA', '#33DADA', '#FF337A', '#7A33FF', 
+            '#33FF9C', '#FF57A1', '#57FF33', '#FF3357', '#33FF57', '#33DAFF', '#FF8C57', '#FF33FF', '#FFDA57', 
+            '#57FFDA', '#57A8FF', '#FF57D4', '#D457FF', '#DA33FF', '#57FF57', '#FFD457', '#57FFD4', '#FFD4FF', 
+            '#33FF66', '#FFB757', '#FF5733', '#33DA57', '#57FF66', '#33FFB7', '#57DAFF', '#DA57FF', '#FF57DA', 
+            '#D4FF33', '#FFDADA', '#B733FF', '#33FFDADA', '#DAFF33', '#FF33D4', '#DAFF57', '#FFDAA8', '#DAFFA8', 
+            '#A8FF33', '#57A8FF', '#D4FF57', '#FF66DA', '#DA33A8', '#FF333A', '#33FFDA', '#33B7FF', '#A8FF57', 
+            '#FFD4DA', '#B7DAFF', '#FF33A8', '#D4A8FF', '#DAA8FF', '#A833DA', '#FF33B7', '#33A8A8', '#FFDAFF'
         ];
-        let index = 0;
 
+        let colorIndex = 0;
         function changeBackgroundColor() {
-            document.body.style.backgroundColor = colors[index];
-            index = (index + 1) % colors.length;
+            document.body.style.backgroundColor = colors[colorIndex];
+            colorIndex = (colorIndex + 1) % colors.length;
         }
+        setInterval(changeBackgroundColor, 1000);
 
-        setInterval(changeBackgroundColor, 1000); // Change color every second
-
-        document.getElementById('searchButton').addEventListener('click', function() {
-            const query = document.getElementById('searchInput').value;
-            if (query) {
-                document.getElementById('results').innerHTML = `<h2>Search results for: "${query}"</h2>`;
-            } else {
-                document.getElementById('results').innerHTML = '';
-            }
-        });
+        function changeStyle() {
+            const text = document.getElementById("text");
+            text.style.fontSize = "48px";
+            text.style.fontStyle = "italic";
+            text.textContent = "Stylish Text";
+        }
     </script>
+
 </body>
 </html>
