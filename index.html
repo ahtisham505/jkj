@@ -3,80 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USA People Search</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Narrow Website</title>
     <style>
+        /* Ensure the website remains narrow, regardless of screen size */
         body {
+            margin: 0;
+            padding: 0;
+            width: 320px; /* Fixed width for narrow layout */
+            max-width: 320px;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
         }
+        
+        /* Container for content */
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        input, button {
             width: 100%;
             padding: 10px;
-            margin: 10px 0;
-            font-size: 16px;
+            background-color: white;
+            border: 1px solid #ccc;
         }
-        .results {
-            margin-top: 20px;
-            background-color: #eee;
-            padding: 10px;
-            border-radius: 5px;
+
+        /* Content styling */
+        h1 {
+            font-size: 18px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>USA People Search</h1>
-        <form id="searchForm">
-            <input type="text" id="searchQuery" placeholder="Enter phone number" required>
-            <button type="submit">Search</button>
-        </form>
-        <div class="results" id="results"></div>
+        <h1>Welcome to the Narrow Website</h1>
+        <p>This is a simple narrow-width website that adjusts according to the viewport to remain narrow and consistent. It is designed to be easy to load again and again without changes in the layout.</p>
     </div>
-
-    <script>
-        document.getElementById('searchForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            var query = document.getElementById('searchQuery').value;
-
-            // Make the API call to backend
-            fetch('/api/search', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ phoneNumber: query })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('results').innerHTML = `
-                        <h2>Results:</h2>
-                        <p><strong>Name:</strong> ${data.name}</p>
-                        <p><strong>Address:</strong> ${data.address}</p>
-                        <p><strong>Date of Birth:</strong> ${data.dateOfBirth}</p>
-                        <p><strong>ID:</strong> ${data.id}</p>
-                    `;
-                } else {
-                    document.getElementById('results').innerHTML = `<p>No results found for that phone number.</p>`;
-                }
-            })
-            .catch(error => {
-                document.getElementById('results').innerHTML = `<p>Error fetching results.</p>`;
-            });
-        });
-    </script>
 </body>
 </html>
