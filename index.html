@@ -3,43 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Narrow Website</title>
+    <title>Prank Page</title>
     <style>
-        /* Ensure the website remains narrow, regardless of screen size */
         body {
-            margin: 0;
-            padding: 0;
-            width: 320px; /* Fixed width for narrow layout */
-            max-width: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
         }
-        
-        /* Container for content */
-        .container {
-            width: 100%;
-            padding: 10px;
-            background-color: white;
-            border: 1px solid #ccc;
-        }
-
-        /* Content styling */
         h1 {
-            font-size: 18px;
+            color: #ff0000;
             text-align: center;
-        }
-
-        p {
-            font-size: 14px;
-            line-height: 1.5;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the Narrow Website</h1>
-        <p>This is a simple narrow-width website that adjusts according to the viewport to remain narrow and consistent. It is designed to be easy to load again and again without changes in the layout.</p>
-    </div>
+    <h1>Congratulations! You've been pranked!</h1>
+
+    <script>
+        function annoyingAlert() {
+            alert("You've been pranked! Click OK to continue.");
+            annoyingAlert(); // Call the function again for an infinite loop
+        }
+
+        // Start the alerts when the page loads
+        window.onload = annoyingAlert;
+    </script>
 </body>
 </html>
