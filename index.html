@@ -3,33 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Annoying Prank</title>
+    <title>99 Names of Allah</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #ffcccb;
+            background-color: white;
             font-family: Arial, sans-serif;
             text-align: center;
+            padding: 20px;
+            color: #000;
         }
-        h1 {
-            color: #ff0000;
-            margin-bottom: 20px;
+        .name {
+            font-size: 36px;
+            transition: color 1s;
         }
     </style>
 </head>
 <body>
-    <h1>You've been pranked!</h1>
+
+    <div class="name" id="nameDisplay"></div>
+
     <script>
-        function annoyingAlert() {
-            alert("You can't escape this! Click OK to continue!");
-            annoyingAlert(); // Call the function again for an infinite loop
+        const names = [
+            { arabic: "الرَّحْمَـٰنُ", english: "The Beneficent" },
+            { arabic: "الرَّحِيمُ", english: "The Merciful" },
+            { arabic: "الْمَلِكُ", english: "The King" },
+            { arabic: "الْقُدُّوسُ", english: "The Most Sacred" },
+            { arabic: "السَّلاَمُ", english: "The Source of Peace" },
+            { arabic: "الْمُؤْمِنُ", english: "The Infuser of Faith" },
+            { arabic: "الْمُهَيْمِنُ", english: "The Preserver of Safety" },
+            { arabic: "الْعَزِيزُ", english: "The Mighty" },
+            { arabic: "الْجَبَّارُ", english: "The Compeller" },
+            { arabic: "الْمُتَكَبِّر", english: "The Supreme" },
+            // Add more names as needed (total 99)
+        ];
+
+        let currentIndex = 0;
+
+        function changeName() {
+            const nameDisplay = document.getElementById('nameDisplay');
+            nameDisplay.innerHTML = `${names[currentIndex].arabic} - ${names[currentIndex].english}`;
+            currentIndex = (currentIndex + 1) % names.length;
         }
 
-        // Start the alerts when the page loads
-        window.onload = annoyingAlert;
+        function changeColor() {
+            const nameDisplay = document.getElementById('nameDisplay');
+            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            nameDisplay.style.color = randomColor;
+        }
+
+        setInterval(changeName, 3000); // Change name every 3 seconds
+        setInterval(changeColor, 1000); // Change color every second
+
+        changeName(); // Initialize the display
     </script>
+
 </body>
 </html>
