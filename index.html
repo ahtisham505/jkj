@@ -7,151 +7,184 @@
     <style>
         body {
             background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
             font-family: Arial, sans-serif;
-            font-size: 24px;
-            color: black;
-        }
-        .names {
             text-align: center;
+            padding: 50px;
+        }
+        .name {
+            font-size: 24px;
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
-    <div class="names" id="namesContainer">
-        <!-- Names will be inserted here by JavaScript -->
+    <div id="names-container">
+        <!-- All names of Allah with translations -->
+        <div class="name">الرَّحْمَـٰنُ - الرحمن</div>
+        <div class="name">الرَّحِيمُ - الرحیم</div>
+        <div class="name">الْمَلِكُ - الملک</div>
+        <div class="name">الْقُدُّوسُ - القدوس</div>
+        <div class="name">السَّلاَمُ - السلام</div>
+        <div class="name">الْمُؤْمِنُ - المومن</div>
+        <div class="name">الْمُهَيْمِنُ - المھیمن</div>
+        <div class="name">الْعَزِيزُ - العزیز</div>
+        <div class="name">الْجَبَّارُ - الجبار</div>
+        <div class="name">الْمُتَكَبِّرُ - المتکبر</div>
+        <div class="name">الْخَالِقُ - الخالق</div>
+        <div class="name">الْبَارِئُ - الباری</div>
+        <div class="name">الْمُصَوِّرُ - المصور</div>
+        <div class="name">الْغَفَّارُ - الغفار</div>
+        <div class="name">الْقَهَّارُ - القہار</div>
+        <div class="name">الْوَهَّابُ - الوهاب</div>
+        <div class="name">الرَّزَّاقُ - الرزاق</div>
+        <div class="name">الْفَتَّاحُ - الفتاح</div>
+        <div class="name">العَلِيمُ - العلیم</div>
+        <div class="name">الْقَابِضُ - القابض</div>
+        <div class="name">الْبَاسِطُ - الباسط</div>
+        <div class="name">الْخَافِضُ - الخافض</div>
+        <div class="name">الرَّافِعُ - الرافع</div>
+        <div class="name">الْمُعِزُّ - المعز</div>
+        <div class="name">الْمُذِلُّ - المذل</div>
+        <div class="name">السَّمِيعُ - السمیع</div>
+        <div class="name">الْبَصِيرُ - البصیر</div>
+        <div class="name">الْحَكَمُ - الحکم</div>
+        <div class="name">الْعَدْلُ - العدل</div>
+        <div class="name">اللَّطِيفُ - اللطیف</div>
+        <div class="name">الْخَبِيرُ - الخبیر</div>
+        <div class="name">الْحَلِيمُ - الحلیم</div>
+        <div class="name">الْعَظِيمُ - العظیم</div>
+        <div class="name">الْغَفُورُ - الغفور</div>
+        <div class="name">الشَّكُورُ - الشکور</div>
+        <div class="name">الْكَبِيرُ - الکبیر</div>
+        <div class="name">الْحَفِيظُ - الحفیظ</div>
+        <div class="name">الْمُقيِتُ - المقیت</div>
+        <div class="name">الْحَسِيبُ - الحسیب</div>
+        <div class="name">الْجَلِيلُ - الجلیل</div>
+        <div class="name">الْكَبِيرُ - الکبیر</div>
+        <div class="name">الْحَلِيمُ - الحلیم</div>
+        <div class="name">الْمُقِيتُ - المقیت</div>
+        <div class="name">الْوَاسِعُ - الواسع</div>
+        <div class="name">الْحَكِيمُ - الحكیم</div>
+        <div class="name">الْوَدُودُ - الودود</div>
+        <div class="name">الْمَجِيدُ - المجید</div>
+        <div class="name">الْبَاعِثُ - الباعث</div>
+        <div class="name">الشَّهِيدُ - الشھید</div>
+        <div class="name">الْحَقُ - الحق</div>
+        <div class="name">الْوَكِيلُ - الوکیل</div>
+        <div class="name">الْقَوِيُ - القوی</div>
+        <div class="name">الْمَتِينُ - المتین</div>
+        <div class="name">الْوَلِيُّ - الولی</div>
+        <div class="name">الْحَمِيدُ - الحمید</div>
+        <div class="name">الْمُحْصِي - المحصی</div>
+        <div class="name">الْمُبْتِدِئُ - المبتدئ</div>
+        <div class="name">الْمُعِيدُ - المعید</div>
+        <div class="name">الْمُحْيِي - المحیی</div>
+        <div class="name">الْمُمِيتُ - المميت</div>
+        <div class="name">الْحَيُّ - الحی</div>
+        <div class="name">الْقَيُّومُ - القیوم</div>
+        <div class="name">الْوَاجِدُ - الواجد</div>
+        <div class="name">الْمَاجِدُ - الماجد</div>
+        <div class="name">الْواحِدُ - الواحد</div>
+        <div class="name">الاَحَدُ - الاحد</div>
+        <div class="name">الصَّمَدُ - الصمد</div>
+        <div class="name">الْقَادِرُ - القادر</div>
+        <div class="name">الْمُقْتَدِرُ - المقتدر</div>
+        <div class="name">الْمُقَدِّمُ - المقدم</div>
+        <div class="name">الْمُؤَخِّرُ - المؤخر</div>
+        <div class="name">الأوَّلُ - الأول</div>
+        <div class="name">الْآخِرُ - الآخیر</div>
+        <div class="name">الظَّاهِرُ - الظاہر</div>
+        <div class="name">الْبَاطِنُ - الباطن</div>
+        <div class="name">الْوَالِي - الوالي</div>
+        <div class="name">الْمُتَعَالِي - المتعالی</div>
+        <div class="name">الْبَرِّيءُ - البریء</div>
+        <div class="name">الْمُصَوِّرُ - المصور</div>
+        <div class="name">الْخَالِقُ - الخالق</div>
+        <div class="name">الْمُبْتَدِئُ - المبتدئ</div>
+        <div class="name">الْمُعِيدُ - المعید</div>
+        <div class="name">الْمُحْيِي - المحیی</div>
+        <div class="name">الْمُمِيتُ - المميت</div>
+        <div class="name">الْحَيُّ - الحی</div>
+        <div class="name">الْقَيُّومُ - القیوم</div>
+        <div class="name">الْوَاجِدُ - الواجد</div>
+        <div class="name">الْمَاجِدُ - الماجد</div>
+        <div class="name">الْواحِدُ - الواحد</div>
+        <div class="name">الاَحَدُ - الاحد</div>
+        <div class="name">الصَّمَدُ - الصمد</div>
+        <div class="name">الْقَادِرُ - القادر</div>
+        <div class="name">الْمُقْتَدِرُ - المقتدر</div>
+        <div class="name">الْمُقَدِّمُ - المقدم</div>
+        <div class="name">الْمُؤَخِّرُ - المؤخر</div>
+        <div class="name">الأوَّلُ - الأول</div>
+        <div class="name">الْآخِرُ - الآخیر</div>
+        <div class="name">الظَّاهِرُ - الظاہر</div>
+        <div class="name">الْبَاطِنُ - الباطن</div>
+        <div class="name">الْوَالِي - الوالي</div>
+        <div class="name">الْمُتَعَالِي - المتعالی</div>
+        <div class="name">الْبَرِّيءُ - البریء</div>
+        <div class="name">الْمُصَوِّرُ - المصور</div>
+        <div class="name">الْخَالِقُ - الخالق</div>
+        <div class="name">الْمُبْتَدِئُ - المبتدئ</div>
+        <div class="name">الْمُعِيدُ - المعید</div>
+        <div class="name">الْمُحْيِي - المحیی</div>
+        <div class="name">الْمُمِيتُ - المميت</div>
+        <div class="name">الْحَيُّ - الحی</div>
+        <div class="name">الْقَيُّومُ - القیوم</div>
+        <div class="name">الْوَاجِدُ - الواجد</div>
+        <div class="name">الْمَاجِدُ - الماجد</div>
+        <div class="name">الْواحِدُ - الواحد</div>
+        <div class="name">الاَحَدُ - الاحد</div>
+        <div class="name">الصَّمَدُ - الصمد</div>
+        <div class="name">الْقَادِرُ - القادر</div>
+        <div class="name">الْمُقْتَدِرُ - المقتدر</div>
+        <div class="name">الْمُقَدِّمُ - المقدم</div>
+        <div class="name">الْمُؤَخِّرُ - المؤخر</div>
+        <div class="name">الأوَّلُ - الأول</div>
+        <div class="name">الْآخِرُ - الآخیر</div>
+        <div class="name">الظَّاهِرُ - الظاہر</div>
+        <div class="name">الْبَاطِنُ - الباطن</div>
+        <div class="name">الْوَالِي - الوالي</div>
+        <div class="name">الْمُتَعَالِي - المتعالی</div>
+        <div class="name">الْبَرِّيءُ - البریء</div>
+        <div class="name">الْمُصَوِّرُ - المصور</div>
+        <div class="name">الْخَالِقُ - الخالق</div>
+        <div class="name">الْمُبْتَدِئُ - المبتدئ</div>
+        <div class="name">الْمُعِيدُ - المعید</div>
+        <div class="name">الْمُحْيِي - المحیی</div>
+        <div class="name">الْمُمِيتُ - المميت</div>
+        <div class="name">الْحَيُّ - الحی</div>
+        <div class="name">الْقَيُّومُ - القیوم</div>
+        <div class="name">الْوَاجِدُ - الواجد</div>
+        <div class="name">الْمَاجِدُ - الماجد</div>
+        <div class="name">الْواحِدُ - الواحد</div>
+        <div class="name">الاَحَدُ - الاحد</div>
+        <div class="name">الصَّمَدُ - الصمد</div>
+        <div class="name">الْقَادِرُ - القادر</div>
+        <div class="name">الْمُقْتَدِرُ - المقتدر</div>
+        <div class="name">الْمُقَدِّمُ - المقدم</div>
+        <div class="name">الْمُؤَخِّرُ - المؤخر</div>
+        <div class="name">الأوَّلُ - الأول</div>
+        <div class="name">الْآخِرُ - الآخیر</div>
+        <div class="name">الظَّاهِرُ - الظاہر</div>
+        <div class="name">الْبَاطِنُ - الباطن</div>
+        <div class="name">الْوَالِي - الوالي</div>
+        <div class="name">الْمُتَعَالِي - المتعالی</div>
+        <div class="name">الْبَرِّيءُ - البریء</div>
     </div>
 
     <script>
-        const names = [
-            { urdu: "الرحمن", english: "The Beneficent" },
-            { urdu: "الرحیم", english: "The Merciful" },
-            { urdu: "الملک", english: "The King" },
-            { urdu: "القدوس", english: "The Most Sacred" },
-            { urdu: "السلام", english: "The Source of Peace" },
-            { urdu: "المؤمن", english: "The Infuser of Faith" },
-            { urdu: "المہیمن", english: "The Preserver of Safety" },
-            { urdu: "العزیز", english: "The Almighty" },
-            { urdu: "الجبار", english: "The Compeller" },
-            { urdu: "المتکبر", english: "The Supreme" },
-            { urdu: "الخالق", english: "The Creator" },
-            { urdu: "البارئ", english: "The Evolver" },
-            { urdu: "المصور", english: "The Fashioner" },
-            { urdu: "الغفار", english: "The Constant Forgiver" },
-            { urdu: "القہار", english: "The All-Prevailing One" },
-            { urdu: "الوہاب", english: "The Supreme Bestower" },
-            { urdu: "الرزاق", english: "The Provider" },
-            { urdu: "الفتاح", english: "The Opener" },
-            { urdu: "العلیم", english: "The All-Knowing" },
-            { urdu: "القابض", english: "The Withholder" },
-            { urdu: "الباسط", english: "The Extender" },
-            { urdu: "الخافض", english: "The Reducer" },
-            { urdu: "الرافع", english: "The Exalter" },
-            { urdu: "المعز", english: "The Honourer" },
-            { urdu: "المذل", english: "The Dishonourer" },
-            { urdu: "السمیع", english: "The All-Hearing" },
-            { urdu: "البصیر", english: "The All-Seeing" },
-            { urdu: "الحکم", english: "The Impartial Judge" },
-            { urdu: "العدل", english: "The Utterly Just" },
-            { urdu: "اللطیف", english: "The Subtle One" },
-            { urdu: "الخبیر", english: "The All-Aware" },
-            { urdu: "الحلیم", english: "The Forbearing" },
-            { urdu: "الکبیر", english: "The Most Great" },
-            { urdu: "الحفیظ", english: "The Preserver" },
-            { urdu: "المقیت", english: "The Sustainer" },
-            { urdu: "الحسیب", english: "The Reckoner" },
-            { urdu: "الجلیل", english: "The Majestic" },
-            { urdu: "الکریم", english: "The Generous" },
-            { urdu: "الرقیب", english: "The Watchful" },
-            { urdu: "المجیب", english: "The Responsive One" },
-            { urdu: "الواسع", english: "The All-Encompassing" },
-            { urdu: "الحکیم", english: "The All-Wise" },
-            { urdu: "الودود", english: "The Most Loving" },
-            { urdu: "المجید", english: "The Glorious" },
-            { urdu: "الباعث", english: "The Resurrector" },
-            { urdu: "الشہید", english: "The All Observing Witnessing" },
-            { urdu: "الحق", english: "The Absolute Truth" },
-            { urdu: "الوکیل", english: "The Trustee" },
-            { urdu: "القوی", english: "The All-Strong" },
-            { urdu: "المتین", english: "The Firm" },
-            { urdu: "الولی", english: "The Protecting Associate" },
-            { urdu: "الحمید", english: "The Praiseworthy" },
-            { urdu: "المحسی", english: "The All-Enumerating" },
-            { urdu: "المبسط", english: "The Extender" },
-            { urdu: "المُعید", english: "The Restorer" },
-            { urdu: "المُحیی", english: "The Giver of Life" },
-            { urdu: "المُمیّت", english: "The Creator of Death" },
-            { urdu: "الحی", english: "The Ever-Living" },
-            { urdu: "القیوم", english: "The Sustainer" },
-            { urdu: "الواجد", english: "The Perceiver" },
-            { urdu: "الماجد", english: "The Illustrious" },
-            { urdu: "الواحد", english: "The One" },
-            { urdu: "الاحد", english: "The Unique" },
-            { urdu: "الصمد", english: "The Eternal" },
-            { urdu: "القادر", english: "The Omnipotent" },
-            { urdu: "المقتدر", english: "The Powerful" },
-            { urdu: "المقدم", english: "The Expediter" },
-            { urdu: "المؤخر", english: "The Delayer" },
-            { urdu: "الأول", english: "The First" },
-            { urdu: "الآخر", english: "The Last" },
-            { urdu: "الظاہر", english: "The Manifest" },
-            { urdu: "الباطن", english: "The Hidden" },
-            { urdu: "الوالی", english: "The Sole Governor" },
-            { urdu: "المتعالی", english: "The Self Exalted" },
-            { urdu: "البر", english: "The Source of All Goodness" },
-            { urdu: "التواب", english: "The Ever-Acceptor of Repentance" },
-            { urdu: "المُنتقم", english: "The Avenger" },
-            { urdu: "العفو", english: "The Pardoner" },
-            { urdu: "الرؤوف", english: "The Most Kind" },
-            { urdu: "مالک الملک", english: "Master of the Kingdom" },
-            { urdu: "ذوالجلال والا کرام", english: "Lord of Glory and Honour" },
-            { urdu: "المُقسط", english: "The Just One" },
-            { urdu: "الجامع", english: "The Gatherer" },
-            { urdu: "الغنی", english: "The Self-Sufficient" },
-            { urdu: "المغنی", english: "The Enricher" },
-            { urdu: "الم مانع", english: "The Withholder" },
-            { urdu: "الدار", english: "The Ultimate Judge" },
-            { urdu: "الباقی", english: "The Ever-Surviving" },
-            { urdu: "الوارث", english: "The Inheritor" },
-            { urdu: "الرشید", english: "The Guide" },
-            { urdu: "الصبور", english: "The Patient" }
-        ];
+        const namesContainer = document.getElementById('names-container');
+        const colors = ['#000000', '#FF0000', '#008000', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+        let fontSize = 24;
+        let fontIndex = 0;
 
-        let index = 0;
-
-        function displayNames() {
-            const namesContainer = document.getElementById("namesContainer");
-            namesContainer.innerHTML = "";
-
-            for (let i = 0; i < 5; i++) {
-                const name = names[(index + i) % names.length];
-                namesContainer.innerHTML += `<div style="font-family: 'Times New Roman', Times, serif;">${name.urdu} - ${name.english}</div>`;
-            }
-        }
-
-        function changeStyles() {
-            const namesContainer = document.getElementById("namesContainer");
-            const fonts = ["Arial", "Courier New", "Georgia", "Times New Roman", "Verdana"];
-            const colors = ["#000", "#007bff", "#dc3545", "#28a745", "#ffc107"];
-            const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-            namesContainer.style.fontFamily = randomFont;
-            namesContainer.style.color = randomColor;
-        }
-
-        function updateDisplay() {
-            displayNames();
-            changeStyles();
-            index += 5;
-            setTimeout(updateDisplay, 10000);
-        }
-
-        updateDisplay(); // Initial call
+        setInterval(() => {
+            // Change text color
+            namesContainer.style.color = colors[Math.floor(Math.random() * colors.length)];
+            // Change font size
+            fontSize = (fontSize === 24) ? 28 : 24; // Toggle font size between 24px and 28px
+            namesContainer.style.fontSize = fontSize + 'px';
+        }, 10000);
     </script>
 </body>
 </html>
