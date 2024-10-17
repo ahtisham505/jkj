@@ -7,139 +7,152 @@
     <style>
         body {
             background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
             font-family: Arial, sans-serif;
+            font-size: 24px;
+            color: black;
+        }
+        .names {
             text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        #names {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr); /* 5 columns */
-            gap: 20px;
-            font-size: 20px;
-        }
-        .name {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: all 0.5s ease; /* Smooth transition for font and color changes */
         }
     </style>
 </head>
 <body>
+    <div class="names" id="namesContainer">
+        <!-- Names will be inserted here by JavaScript -->
+    </div>
 
-<h1>99 Names of Allah (Arabic & English)</h1>
-<div id="names"></div>
+    <script>
+        const names = [
+            { arabic: "الرَّحْمَـٰنُ", english: "The Beneficent" },
+            { arabic: "الرَّحِيمُ", english: "The Merciful" },
+            { arabic: "الْمَلِكُ", english: "The King" },
+            { arabic: "الْقُدُّوسُ", english: "The Most Sacred" },
+            { arabic: "السَّلاَمُ", english: "The Source of Peace" },
+            { arabic: "الْمُؤْمِنُ", english: "The Infuser of Faith" },
+            { arabic: "الْمُهَيْمِنُ", english: "The Preserver of Safety" },
+            { arabic: "الْعَزِيزُ", english: "The Almighty" },
+            { arabic: "الْجَبَّارُ", english: "The Compeller" },
+            { arabic: "الْمُتَكَبِّر", english: "The Supreme" },
+            { arabic: "الْخَالِقُ", english: "The Creator" },
+            { arabic: "الْبَارِئُ", english: "The Evolver" },
+            { arabic: "الْمُصَوِّرُ", english: "The Fashioner" },
+            { arabic: "الْغَفَّارُ", english: "The Constant Forgiver" },
+            { arabic: "الْقَهَّارُ", english: "The All-Prevailing One" },
+            { arabic: "الْوَهَّابُ", english: "The Supreme Bestower" },
+            { arabic: "الرَّزَّاقُ", english: "The Provider" },
+            { arabic: "الْفَتَّاحُ", english: "The Opener" },
+            { arabic: "الْعَلِيمُ", english: "The All-Knowing" },
+            { arabic: "الْقَابِضُ", english: "The Withholder" },
+            { arabic: "الْبَاسِطُ", english: "The Extender" },
+            { arabic: "الْخَافِضُ", english: "The Reducer" },
+            { arabic: "الرَّافِعُ", english: "The Exalter" },
+            { arabic: "المُعِزُّ", english: "The Honourer" },
+            { arabic: "المُذِلُّ", english: "The Dishonourer" },
+            { arabic: "السَّمِيعُ", english: "The All-Hearing" },
+            { arabic: "الْبَصِيرُ", english: "The All-Seeing" },
+            { arabic: "الْحَكَمُ", english: "The Impartial Judge" },
+            { arabic: "الْعَدْلُ", english: "The Utterly Just" },
+            { arabic: "اللَّطِيفُ", english: "The Subtle One" },
+            { arabic: "الْخَبِيرُ", english: "The All-Aware" },
+            { arabic: "الْحَلِيمُ", english: "The Forbearing" },
+            { arabic: "الْكَبِيرُ", english: "The Most Great" },
+            { arabic: "الْحَفِيظُ", english: "The Preserver" },
+            { arabic: "المُقيِت", english: "The Sustainer" },
+            { arabic: "المُقيِت", english: "The Sustainer" },
+            { arabic: "الْحَسِيبُ", english: "The Reckoner" },
+            { arabic: "الْجَلِيلُ", english: "The Majestic" },
+            { arabic: "الْكَرِيمُ", english: "The Generous" },
+            { arabic: "الرَّقِيبُ", english: "The Watchful" },
+            { arabic: "الْمُجِيبُ", english: "The Responsive One" },
+            { arabic: "الْوَاسِعُ", english: "The All-Encompassing" },
+            { arabic: "الْحَكِيمُ", english: "The All-Wise" },
+            { arabic: "الْوَدُودُ", english: "The Most Loving" },
+            { arabic: "الْمَجِيدُ", english: "The Glorious" },
+            { arabic: "الْبَاعِثُ", english: "The Resurrector" },
+            { arabic: "الشَّهِيدُ", english: "The All Observing Witnessing" },
+            { arabic: "الْحَقُ", english: "The Absolute Truth" },
+            { arabic: "الْوَكِيلُ", english: "The Trustee" },
+            { arabic: "الْقَوِيُ", english: "The All-Strong" },
+            { arabic: "الْمَتِينُ", english: "The Firm" },
+            { arabic: "الْوَلِيُّ", english: "The Protecting Associate" },
+            { arabic: "الْحَمِيدُ", english: "The Praiseworthy" },
+            { arabic: "الْمُحْصِي", english: "The All-Enumerating" },
+            { arabic: "الْمُبْسِطُ", english: "The Extender" },
+            { arabic: "الْمُعِيدُ", english: "The Restorer" },
+            { arabic: "الْمُحْيِي", english: "The Giver of Life" },
+            { arabic: "الْمُمِيتُ", english: "The Creator of Death" },
+            { arabic: "الْحَيُ", english: "The Ever-Living" },
+            { arabic: "الْقَيُّومُ", english: "The Sustainer" },
+            { arabic: "الْوَاجِدُ", english: "The Perceiver" },
+            { arabic: "الْمَاجِدُ", english: "The Illustrious" },
+            { arabic: "الواحِدُ", english: "The One" },
+            { arabic: "الاَحَدُ", english: "The Unique" },
+            { arabic: "الصَّمَدُ", english: "The Eternal" },
+            { arabic: "الْقَادِرُ", english: "The Omnipotent" },
+            { arabic: "الْمُقْتَدِرُ", english: "The Powerful" },
+            { arabic: "الْمُقَدِّمُ", english: "The Expediter" },
+            { arabic: "الْمُؤَخِّرُ", english: "The Delayer" },
+            { arabic: "الأوَّلُ", english: "The First" },
+            { arabic: "الآخِرُ", english: "The Last" },
+            { arabic: "الظَّاهِرُ", english: "The Manifest" },
+            { arabic: "الْبَاطِنُ", english: "The Hidden" },
+            { arabic: "الْوَالِي", english: "The Sole Governor" },
+            { arabic: "الْمُتَعَالِي", english: "The Self Exalted" },
+            { arabic: "الْبَرِّ", english: "The Source of All Goodness" },
+            { arabic: "الْتَّوَابُ", english: "The Ever-Acceptor of Repentance" },
+            { arabic: "الْمُنْتَقِمُ", english: "The Avenger" },
+            { arabic: "الْعَفُوُ", english: "The Pardoner" },
+            { arabic: "الرَّؤُوفُ", english: "The Most Kind" },
+            { arabic: "مَالِكُ الْمُلْكِ", english: "Master of the Kingdom" },
+            { arabic: "الْذُّوالْجَلاَلِ وَالإكْرَامِ", english: "Lord of Glory and Honour" },
+            { arabic: "الْمُقْسِطُ", english: "The Just One" },
+            { arabic: "الْجَامِعُ", english: "The Gatherer" },
+            { arabic: "الْغَنِيُّ", english: "The Self-Sufficient" },
+            { arabic: "الْمُغْنِيُ", english: "The Enricher" },
+            { arabic: "الْمَانِعُ", english: "The Withholder" },
+            { arabic: "الدَّارُ", english: "The Ultimate Judge" },
+            { arabic: "الْبَاقِي", english: "The Ever-Surviving" },
+            { arabic: "الْوَارِثُ", english: "The Inheritor" },
+            { arabic: "الرَّشِيدُ", english: "The Guide" },
+            { arabic: "الْصَّبُورُ", english: "The Patient" }
+        ];
 
-<script>
-    const names = [
-        { arabic: "الرَّحْمَـٰنُ", english: "The Beneficent" },
-        { arabic: "الرَّحِيمُ", english: "The Merciful" },
-        { arabic: "الْمَلِكُ", english: "The King" },
-        { arabic: "الْقُدُّوسُ", english: "The Most Sacred" },
-        { arabic: "السَّلاَمُ", english: "The Source of Peace" },
-        { arabic: "الْمُؤْمِنُ", english: "The Infuser of Faith" },
-        { arabic: "الْمُهَيْمِنُ", english: "The Preserver of Safety" },
-        { arabic: "الْعَزِيزُ", english: "The Almighty" },
-        { arabic: "الْجَبَّارُ", english: "The Compeller" },
-        { arabic: "الْمُتَكَبِّر", english: "The Supreme" },
-        { arabic: "الْخَالِقُ", english: "The Creator" },
-        { arabic: "الْبَارِئُ", english: "The Evolver" },
-        { arabic: "الْمُصَوِّرُ", english: "The Fashioner" },
-        { arabic: "الْغَفَّارُ", english: "The Constant Forgiver" },
-        { arabic: "الْقَهَّارُ", english: "The All-Prevailing One" },
-        { arabic: "الْوَهَّابُ", english: "The Supreme Bestower" },
-        { arabic: "الرَّزَّاقُ", english: "The Provider" },
-        { arabic: "الْفَتَّاحُ", english: "The Opener" },
-        { arabic: "الْعَلِيمُ", english: "The All-Knowing" },
-        { arabic: "الْقَابِضُ", english: "The Withholder" },
-        { arabic: "الْبَاسِطُ", english: "The Extender" },
-        { arabic: "الْخَافِضُ", english: "The Reducer" },
-        { arabic: "الرَّافِعُ", english: "The Exalter" },
-        { arabic: "الْمُعِزُّ", english: "The Honourer" },
-        { arabic: "الْمُذِلُّ", english: "The Dishonourer" },
-        { arabic: "السَّمِيعُ", english: "The All-Hearing" },
-        { arabic: "الْبَصِيرُ", english: "The All-Seeing" },
-        { arabic: "الْحَكَمُ", english: "The Impartial Judge" },
-        { arabic: "الْعَدْلُ", english: "The Utterly Just" },
-        { arabic: "اللَّطِيفُ", english: "The Subtle One" },
-        { arabic: "الْخَبِيرُ", english: "The All-Aware" },
-        { arabic: "الْحَلِيمُ", english: "The Forbearing" },
-        { arabic: "الْعَظِيمُ", english: "The Magnificent" },
-        { arabic: "الْكَبِيرُ", english: "The Most Great" },
-        { arabic: "الْحَفِيظُ", english: "The Preserver" },
-        { arabic: "المُقيِت", english: "The Sustainer" },
-        { arabic: "الْحَسِيبُ", english: "The Reckoner" },
-        { arabic: "الْجَلِيلُ", english: "The Majestic" },
-        { arabic: "الْكَرِيمُ", english: "The Generous" },
-        { arabic: "الرَّقِيبُ", english: "The Watchful" },
-        { arabic: "الْمُجِيبُ", english: "The Responsive One" },
-        { arabic: "الْوَاسِعُ", english: "The All-Encompassing" },
-        { arabic: "الْحَكِيمُ", english: "The All-Wise" },
-        { arabic: "الْوَدُودُ", english: "The Most Loving" },
-        { arabic: "الْمَجِيدُ", english: "The Glorious" },
-        { arabic: "الْبَاعِثُ", english: "The Resurrector" },
-        { arabic: "الشَّهِيدُ", english: "The All Observing Witnessing" },
-        { arabic: "الْحَقُ", english: "The Absolute Truth" },
-        { arabic: "الْوَكِيلُ", english: "The Trustee" },
-        { arabic: "الْقَوِيُ", english: "The All-Strong" },
-        { arabic: "الْمَتِينُ", english: "The Firm" },
-        { arabic: "الْوَلِيُّ", english: "The Protecting Associate" },
-        { arabic: "الْحَمِيدُ", english: "The Praiseworthy" },
-        { arabic: "الْمُحْصِي", english: "The All-Enumerating" },
-        { arabic: "الْمُبْتَكِرُ", english: "The Originator" },
-        { arabic: "الْمُعِيدُ", english: "The Restorer" },
-        { arabic: "الْمُحْيِي", english: "The Giver of Life" },
-        { arabic: "الْمُمِيتُ", english: "The Creator of Death" },
-        { arabic: "الْحَيُّ", english: "The Ever-Living" },
-        { arabic: "الْقَيُّومُ", english: "The Sustainer" },
-        { arabic: "الْوَاجِدُ", english: "The Perceiver" },
-        { arabic: "الْمَاجِدُ", english: "The Illustrious" },
-        { arabic: "الْواحِدُ", english: "The One" },
-        { arabic: "الْأَحَدُ", english: "The Unique" },
-        { arabic: "الصَّمَدُ", english: "The Eternal" },
-        { arabic: "الْقَادِرُ", english: "The Omnipotent" },
-        { arabic: "الْمُقْتَدِرُ", english: "The Powerful" },
-        { arabic: "الْمُقَدِّمُ", english: "The Expediter" },
-        { arabic: "الْمُؤَخِّرُ", english: "The Delayer" },
-        { arabic: "الأوَّلُ", english: "The First" },
-        { arabic: "الْآخِرُ", english: "The Last" },
-        { arabic: "الظَّاهِرُ", english: "The Manifest" },
-        { arabic: "الْبَاطِنُ", english: "The Hidden" },
-        { arabic: "الْوَالِي", english: "The Sole Governor" },
-        { arabic: "الْمُتَعَالِي", english: "The Self Exalted" },
-        { arabic: "الْبَرِّي", english: "The Sustainer of All" },
-        { arabic: "الْرَّشِيدُ", english: "The Guide" },
-        { arabic: "الْحَكِيمُ", english: "The All-Wise" }
-        // Add more names until you reach 99
-    ];
+        let index = 0;
 
-    const namesContainer = document.getElementById('names');
+        function displayNames() {
+            const namesContainer = document.getElementById("namesContainer");
+            namesContainer.innerHTML = "";
 
-    names.forEach(name => {
-        const nameDiv = document.createElement('div');
-        nameDiv.className = 'name';
-        nameDiv.innerHTML = `${name.arabic} - ${name.english}`;
-        namesContainer.appendChild(nameDiv);
-    });
+            for (let i = 0; i < 5; i++) {
+                const name = names[(index + i) % names.length];
+                namesContainer.innerHTML += `<div style="font-family: 'Times New Roman', Times, serif;">${name.arabic} - ${name.english}</div>`;
+            }
+        }
 
-    // Function to change font and color of all names
-    function changeStyles() {
-        const nameDivs = document.querySelectorAll('.name');
-        const fonts = ['Arial', 'Courier New', 'Georgia', 'Times New Roman', 'Verdana'];
-        const colors = ['#000', '#FF5733', '#33FF57', '#3357FF', '#FF33A1'];
+        function changeStyles() {
+            const namesContainer = document.getElementById("namesContainer");
+            const fonts = ["Arial", "Courier New", "Georgia", "Times New Roman", "Verdana"];
+            const colors = ["#000", "#007bff", "#dc3545", "#28a745", "#ffc107"];
+            const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
-        nameDivs.forEach(div => {
-            div.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
-            div.style.color = colors[Math.floor(Math.random() * colors.length)];
-        });
-    }
+            namesContainer.style.fontFamily = randomFont;
+            namesContainer.style.color = randomColor;
+        }
 
-    setInterval(changeStyles, 1000); // Change every second
-</script>
+        function updateDisplay() {
+            displayNames();
+            changeStyles();
+            index += 5;
+            setTimeout(updateDisplay, 10000);
+        }
 
+        updateDisplay(); // Initial call
+    </script>
 </body>
 </html>
