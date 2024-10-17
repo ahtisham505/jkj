@@ -12,9 +12,20 @@
             margin: 0;
             padding: 20px;
         }
+        h1 {
+            margin-bottom: 20px;
+        }
         #names {
-            font-size: 24px;
-            margin: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columns */
+            gap: 20px;
+            font-size: 20px;
+        }
+        .name {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: all 0.5s ease; /* Smooth transition for font and color changes */
         }
     </style>
 </head>
@@ -61,7 +72,6 @@
         { arabic: "الْكَبِيرُ", english: "The Most Great" },
         { arabic: "الْحَفِيظُ", english: "The Preserver" },
         { arabic: "المُقيِت", english: "The Sustainer" },
-        { arabic: "المُقيِت", english: "The Sustainer" },
         { arabic: "الْحَسِيبُ", english: "The Reckoner" },
         { arabic: "الْجَلِيلُ", english: "The Majestic" },
         { arabic: "الْكَرِيمُ", english: "The Generous" },
@@ -103,57 +113,32 @@
         { arabic: "الْمُتَعَالِي", english: "The Self Exalted" },
         { arabic: "الْبَرِّي", english: "The Sustainer of All" },
         { arabic: "الْرَّشِيدُ", english: "The Guide" },
-        { arabic: "الْحَكِيمُ", english: "The All-Wise" },
-        { arabic: "الْبَارِيءُ", english: "The Creator" },
-        { arabic: "الْمُصَوِّرُ", english: "The Fashioner" },
-        { arabic: "الْبَاعِثُ", english: "The Resurrector" },
-        { arabic: "الْمُحْصِي", english: "The All-Enumerating" },
-        { arabic: "الْمُبْتَكِرُ", english: "The Originator" },
-        { arabic: "الْمُعِيدُ", english: "The Restorer" },
-        { arabic: "الْمُحْيِي", english: "The Giver of Life" },
-        { arabic: "الْمُمِيتُ", english: "The Creator of Death" },
-        { arabic: "الْحَيُّ", english: "The Ever-Living" },
-        { arabic: "الْقَيُّومُ", english: "The Sustainer" },
-        { arabic: "الْوَاجِدُ", english: "The Perceiver" },
-        { arabic: "الْمَاجِدُ", english: "The Illustrious" },
-        { arabic: "الْواحِدُ", english: "The One" },
-        { arabic: "الْأَحَدُ", english: "The Unique" },
-        { arabic: "الصَّمَدُ", english: "The Eternal" },
-        { arabic: "الْقَادِرُ", english: "The Omnipotent" },
-        { arabic: "الْمُقْتَدِرُ", english: "The Powerful" },
-        { arabic: "الْمُقَدِّمُ", english: "The Expediter" },
-        { arabic: "الْمُؤَخِّرُ", english: "The Delayer" },
-        { arabic: "الأوَّلُ", english: "The First" },
-        { arabic: "الْآخِرُ", english: "The Last" },
-        { arabic: "الظَّاهِرُ", english: "The Manifest" },
-        { arabic: "الْبَاطِنُ", english: "The Hidden" },
-        { arabic: "الْوَالِي", english: "The Sole Governor" },
-        { arabic: "الْمُتَعَالِي", english: "The Self Exalted" },
-        { arabic: "الْبَرِّي", english: "The Sustainer of All" },
-        { arabic: "الْرَّشِيدُ", english: "The Guide" },
         { arabic: "الْحَكِيمُ", english: "The All-Wise" }
         // Add more names until you reach 99
     ];
 
-    let index = 0;
+    const namesContainer = document.getElementById('names');
 
-    function displayNames() {
-        const nameDiv = document.getElementById('names');
-        const { arabic, english } = names[index];
-        nameDiv.innerHTML = `${arabic} - ${english}`;
+    names.forEach(name => {
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'name';
+        nameDiv.innerHTML = `${name.arabic} - ${name.english}`;
+        namesContainer.appendChild(nameDiv);
+    });
 
-        // Change font every 3 seconds
+    // Function to change font and color of all names
+    function changeStyles() {
+        const nameDivs = document.querySelectorAll('.name');
         const fonts = ['Arial', 'Courier New', 'Georgia', 'Times New Roman', 'Verdana'];
         const colors = ['#000', '#FF5733', '#33FF57', '#3357FF', '#FF33A1'];
 
-        nameDiv.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
-        nameDiv.style.color = colors[Math.floor(Math.random() * colors.length)];
-
-        index = (index + 1) % names.length;
+        nameDivs.forEach(div => {
+            div.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
+            div.style.color = colors[Math.floor(Math.random() * colors.length)];
+        });
     }
 
-    setInterval(displayNames, 3000);
-    displayNames();
+    setInterval(changeStyles, 1000); // Change every second
 </script>
 
 </body>
