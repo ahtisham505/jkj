@@ -3,120 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>99 Names of Allah</title>
+    <title>Gaming Videos</title>
     <style>
-        body {
-            background-color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        .names-container {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 20px; /* Space between grid items */
-            padding: 20px;
-        }
-        .name {
-            font-size: 24px;
-            margin: 10px 0;
-        }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        .video { margin-bottom: 20px; }
+        .button { padding: 10px 20px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        .button:hover { background-color: #218838; }
+        nav { margin: 20px 0; }
     </style>
 </head>
 <body>
-    <div id="names-container" class="names-container">
-        <div class="name">الرَّحْمَـٰنُ - الرحمن</div>
-        <div class="name">الرَّحِيمُ - الرحیم</div>
-        <div class="name">الْمَلِكُ - الملک</div>
-        <div class="name">الْقُدُّوسُ - القدوس</div>
-        <div class="name">السَّلاَمُ - السلام</div>
-        <div class="name">الْمُؤْمِنُ - المومن</div>
-        <div class="name">الْمُهَيْمِنُ - المھیمن</div>
-        <div class="name">الْعَزِيزُ - العزیز</div>
-        <div class="name">الْجَبَّارُ - الجبار</div>
-        <div class="name">الْمُتَكَبِّرُ - المتکبر</div>
-        <div class="name">الْخَالِقُ - الخالق</div>
-        <div class="name">الْبَارِئُ - الباری</div>
-        <div class="name">الْمُصَوِّرُ - المصور</div>
-        <div class="name">الْغَفَّارُ - الغفار</div>
-        <div class="name">الْقَهَّارُ - القہار</div>
-        <div class="name">الْوَهَّابُ - الوهاب</div>
-        <div class="name">الرَّزَّاقُ - الرزاق</div>
-        <div class="name">الْفَتَّاحُ - الفتاح</div>
-        <div class="name">العَلِيمُ - العلیم</div>
-        <div class="name">الْقَابِضُ - القابض</div>
-        <div class="name">الْبَاسِطُ - الباسط</div>
-        <div class="name">الْخَافِضُ - الخافض</div>
-        <div class="name">الرَّافِعُ - الرافع</div>
-        <div class="name">الْمُعِزُّ - المعز</div>
-        <div class="name">الْمُذِلُّ - المذل</div>
-        <div class="name">السَّمِيعُ - السمیع</div>
-        <div class="name">الْبَصِيرُ - البصیر</div>
-        <div class="name">الْحَكَمُ - الحکم</div>
-        <div class="name">الْعَدْلُ - العدل</div>
-        <div class="name">اللَّطِيفُ - اللطیف</div>
-        <div class="name">الْخَبِيرُ - الخبیر</div>
-        <div class="name">الْحَليْمُ - الحلیم</div>
-        <div class="name">الْعَظِيمُ - العظیم</div>
-        <div class="name">الْغَفُورُ - الغفور</div>
-        <div class="name">الشَّكُورُ - الشکور</div>
-        <div class="name">الْكَبِيرُ - الکبیر</div>
-        <div class="name">الْحَفِيظُ - الحفیظ</div>
-        <div class="name">الْمُقيِتُ - المقیت</div>
-        <div class="name">الْحَسِيبُ - الحسیب</div>
-        <div class="name">الْجَلِيلُ - الجلیل</div>
-        <div class="name">الْكَبِيرُ - الکبیر</div>
-        <div class="name">الْحَلِيمُ - الحلیم</div>
-        <div class="name">الْمُقِيتُ - المقیت</div>
-        <div class="name">الْوَاسِعُ - الواسع</div>
-        <div class="name">الْحَكِيمُ - الحكیم</div>
-        <div class="name">الْوَدُودُ - الودود</div>
-        <div class="name">الْمَجِيدُ - المجید</div>
-        <div class="name">الْبَاعِثُ - الباعث</div>
-        <div class="name">الشَّهِيدُ - الشھید</div>
-        <div class="name">الْحَقُ - الحق</div>
-        <div class="name">الْوَكِيلُ - الوکیل</div>
-        <div class="name">الْقَوِيُ - القوی</div>
-        <div class="name">الْمَتِينُ - المتین</div>
-        <div class="name">الْوَلِيُّ - الولی</div>
-        <div class="name">الْحَمِيدُ - الحمید</div>
-        <div class="name">الْمُحْصِي - المحصی</div>
-        <div class="name">الْمُبْتِدِئُ - المبتدئ</div>
-        <div class="name">الْمُعِيدُ - المعید</div>
-        <div class="name">الْمُحْيِي - المحیی</div>
-        <div class="name">الْمُمِيتُ - المميت</div>
-        <div class="name">الْحَيُّ - الحی</div>
-        <div class="name">الْقَيُّومُ - القیوم</div>
-        <div class="name">الْوَاجِدُ - الواجد</div>
-        <div class="name">الْمَاجِدُ - الماجد</div>
-        <div class="name">الْواحِدُ - الواحد</div>
-        <div class="name">الاَحَدُ - الاحد</div>
-        <div class="name">الصَّمَدُ - الصمد</div>
-        <div class="name">الْقَادِرُ - القادر</div>
-        <div class="name">الْمُقْتَدِرُ - المقتدر</div>
-        <div class="name">الْمُقَدِّمُ - المقدم</div>
-        <div class="name">الْمُؤَخِّرُ - المؤخر</div>
-        <div class="name">الأوَّلُ - الأول</div>
-        <div class="name">الْآخِرُ - الآخیر</div>
-        <div class="name">الظَّاهِرُ - الظاہر</div>
-        <div class="name">الْبَاطِنُ - الباطن</div>
-        <div class="name">الْوَالِي - الوالي</div>
-        <div class="name">الْمُتَعَالِي - المتعالی</div>
-        <div class="name">الْبَرِّيءُ - البریء</div>
+
+<div class="container">
+    <nav>
+        <button class="button" onclick="location.href='#pubg'">PUBG Account</button>
+        <button class="button" onclick="location.href='#freefire'">Free Fire Account</button>
+        <button class="button" onclick="location.href='#contact'">Contact Us</button>
+    </nav>
+
+    <h1 id="pubg">PUBG Account</h1>
+    <div class="video">
+        <h2>PUBG Video</h2>
+        <video width="100%" controls>
+            <source src="pubg-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p>Price: ₹500</p>
+        <button class="button" onclick="location.href='https://wa.me/your_whatsapp_number'">Buy</button>
     </div>
 
-    <script>
-        const namesContainer = document.getElementById('names-container');
-        const colors = ['#000000', '#FF0000', '#008000', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
-        let fontSize = 24;
+    <h1 id="freefire">Free Fire Account</h1>
+    <div class="video">
+        <h2>Free Fire Video</h2>
+        <video width="100%" controls>
+            <source src="freefire-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p>Price: ₹400</p>
+        <button class="button" onclick="location.href='https://wa.me/your_whatsapp_number'">Buy</button>
+    </div>
 
-        setInterval(() => {
-            // Change text color
-            namesContainer.style.color = colors[Math.floor(Math.random() * colors.length)];
-            // Change font size
-            fontSize = (fontSize === 24) ? 28 : 24; // Toggle font size between 24px and 28px
-            namesContainer.style.fontSize = fontSize + 'px';
-        }, 10000);
-    </script>
+    <h1 id="contact">Contact Us</h1>
+    <p>WhatsApp: <a href="https://wa.me/your_whatsapp_number">your_whatsapp_number</a></p>
+    <p>Facebook: <a href="https://facebook.com/your_facebook">your_facebook</a></p>
+    <p>Instagram: <a href="https://instagram.com/your_instagram">your_instagram</a></p>
+    <p>TikTok: <a href="https://tiktok.com/@your_tiktok">your_tiktok</a></p>
+
+    <hr>
+    <button class="button" onclick="location.href='#pubg'">Go to PUBG Account</button>
+    <button class="button" onclick="location.href='#freefire'">Go to Free Fire Account</button>
+    <button class="button" onclick="location.href='#contact'">Go to Contact Us</button>
+</div>
+
 </body>
 </html>
