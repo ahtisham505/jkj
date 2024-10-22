@@ -56,7 +56,7 @@
     <!-- 2048 Game -->
     <div class="game-container" id="game2048">
         <h2>2048</h2>
-        <div id="grid-container"></div>
+        <div id="grid-container" style="display: flex; flex-wrap: wrap; width: 210px;"></div>
         <button onclick="start2048()">New Game</button>
     </div>
 
@@ -111,10 +111,8 @@
 
     <script>
         function showGame(gameId) {
-            // Hide all game containers
             const gameContainers = document.querySelectorAll('.game-container');
             gameContainers.forEach(container => container.style.display = 'none');
-            // Show selected game
             document.getElementById(gameId).style.display = 'block';
         }
 
@@ -125,16 +123,18 @@
             for (let i = 0; i < 16; i++) {
                 const cell = document.createElement("div");
                 cell.classList.add("grid-cell");
-                cell.style.width = "100px";
-                cell.style.height = "100px";
+                cell.style.width = "50px";
+                cell.style.height = "50px";
                 cell.style.backgroundColor = "#ccc";
-                cell.style.display = "inline-block";
-                cell.style.lineHeight = "100px";
+                cell.style.border = "1px solid #999";
+                cell.style.lineHeight = "50px";
                 cell.style.fontSize = "24px";
                 cell.style.textAlign = "center";
                 gridContainer.appendChild(cell);
             }
-            // More 2048 logic would go here
+            // Simple logic to fill cells with random numbers
+            let randomCellIndex = Math.floor(Math.random() * 16);
+            gridContainer.children[randomCellIndex].innerText = '2';
         };
 
         // Flappy Bird Logic
@@ -175,6 +175,9 @@
         const startTetris = () => {
             const canvas = document.getElementById("tetrisCanvas");
             const ctx = canvas.getContext("2d");
+            // Simple Tetris grid for demonstration
+            ctx.fillStyle = "#000";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             // Tetris game logic would go here
         };
 
@@ -182,6 +185,9 @@
         const startPong = () => {
             const canvas = document.getElementById("pongCanvas");
             const ctx = canvas.getContext("2d");
+            // Simple Pong logic for demonstration
+            ctx.fillStyle = "#000";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             // Pong game logic would go here
         };
 
@@ -189,6 +195,9 @@
         const startSnake = () => {
             const canvas = document.getElementById("snakeCanvas");
             const ctx = canvas.getContext("2d");
+            // Simple Snake logic for demonstration
+            ctx.fillStyle = "#000";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             // Snake game logic would go here
         };
 
@@ -196,6 +205,9 @@
         const startBreakout = () => {
             const canvas = document.getElementById("breakoutCanvas");
             const ctx = canvas.getContext("2d");
+            // Simple Breakout logic for demonstration
+            ctx.fillStyle = "#000";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             // Breakout game logic would go here
         };
 
@@ -203,13 +215,28 @@
         const startMemory = () => {
             const memoryBoard = document.getElementById("memoryBoard");
             memoryBoard.innerHTML = ''; // Clear the board
-            // Memory game logic would go here
+            // Memory game logic for demonstration
+            const cards = ['A', 'B', 'A', 'B']; // Sample card set
+            cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.textContent = card;
+                cardElement.style.width = '50px';
+                cardElement.style.height = '50px';
+                cardElement.style.display = 'inline-block';
+                cardElement.style.border = '1px solid #999';
+                cardElement.style.lineHeight = '50px';
+                cardElement.style.textAlign = 'center';
+                memoryBoard.appendChild(cardElement);
+            });
         };
 
         // Space Invaders Game Logic
         const startSpaceInvaders = () => {
             const canvas = document.getElementById("spaceCanvas");
             const ctx = canvas.getContext("2d");
+            // Simple Space Invaders logic for demonstration
+            ctx.fillStyle = "#000";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             // Space Invaders game logic would go here
         };
 
