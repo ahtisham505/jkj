@@ -3,128 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Game</title>
+    <title>All Games in One</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
             margin: 0;
+            padding: 20px;
             background-color: #f4f4f4;
         }
         h1 {
-            margin-bottom: 20px;
+            text-align: center;
         }
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(4, 100px);
-            gap: 10px;
-        }
-        .card {
-            width: 100px;
-            height: 100px;
-            background-color: #007BFF;
-            color: white;
+        .game-container {
+            margin: 20px 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.3s;
         }
-        .card.flipped {
-            background-color: #6c757d;
+        canvas {
+            border: 1px solid #000;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Memory Game</h1>
-    <div class="game-board" id="gameBoard"></div>
+    <h1>All Games</h1>
+
+    <!-- 2048 Game -->
+    <div class="game-container" id="game2048">
+        <h2>2048</h2>
+        <div id="grid-container"></div>
+        <button onclick="start2048()">New Game</button>
+    </div>
+
+    <!-- Flappy Bird -->
+    <div class="game-container">
+        <h2>Flappy Bird</h2>
+        <canvas id="flappyCanvas" width="320" height="480"></canvas>
+        <button onclick="startFlappy()">Start Game</button>
+    </div>
+
+    <!-- Tetris Game -->
+    <div class="game-container">
+        <h2>Tetris</h2>
+        <canvas id="tetrisCanvas" width="300" height="600"></canvas>
+        <button onclick="startTetris()">Start Game</button>
+    </div>
+
+    <!-- Pong Game -->
+    <div class="game-container">
+        <h2>Pong</h2>
+        <canvas id="pongCanvas" width="600" height="400"></canvas>
+        <button onclick="startPong()">Start Game</button>
+    </div>
+
+    <!-- Snake Game -->
+    <div class="game-container">
+        <h2>Snake</h2>
+        <canvas id="snakeCanvas" width="400" height="400"></canvas>
+        <button onclick="startSnake()">Start Game</button>
+    </div>
+
+    <!-- Breakout Game -->
+    <div class="game-container">
+        <h2>Breakout</h2>
+        <canvas id="breakoutCanvas" width="480" height="320"></canvas>
+        <button onclick="startBreakout()">Start Game</button>
+    </div>
+
+    <!-- Memory Game -->
+    <div class="game-container">
+        <h2>Memory Game</h2>
+        <div id="memoryBoard"></div>
+        <button onclick="startMemory()">New Game</button>
+    </div>
+
+    <!-- Space Invaders Game -->
+    <div class="game-container">
+        <h2>Space Invaders</h2>
+        <canvas id="spaceCanvas" width="480" height="320"></canvas>
+        <button onclick="startSpaceInvaders()">Start Game</button>
+    </div>
+
     <script>
-        const cards = [
-            'A', 'A', 'B', 'B', 'C', 'C', 'D', 'D',
-            'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'
-        ];
-
-        let firstCard = null;
-        let secondCard = null;
-        let lockBoard = false;
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+        // 2048 Game Logic
+        const start2048 = () => {
+            const gridContainer = document.getElementById("grid-container");
+            gridContainer.innerHTML = '';
+            for (let i = 0; i < 16; i++) {
+                const cell = document.createElement("div");
+                cell.classList.add("grid-cell");
+                cell.style.width = "100px";
+                cell.style.height = "100px";
+                cell.style.backgroundColor = "#ccc";
+                gridContainer.appendChild(cell);
             }
-            return array;
-        }
+            // More 2048 logic would go here
+        };
 
-        function createCard(cardValue) {
-            const card = document.createElement('div');
-            card.classList.add('card');
-            card.dataset.value = cardValue;
-            card.addEventListener('click', flipCard);
-            return card;
-        }
+        // Flappy Bird Logic
+        const startFlappy = () => {
+            const canvas = document.getElementById("flappyCanvas");
+            const ctx = canvas.getContext("2d");
+            let birdY = canvas.height / 2;
+            let gravity = 0.6;
+            let lift = -12;
+            let velocity = 0;
 
-        function flipCard() {
-            if (lockBoard) return;
-            if (this === firstCard) return;
-
-            this.classList.add('flipped');
-            this.textContent = this.dataset.value;
-
-            if (!firstCard) {
-                firstCard = this;
-                return;
-            }
-
-            secondCard = this;
-            lockBoard = true;
-
-            checkForMatch();
-        }
-
-        function checkForMatch() {
-            const isMatch = firstCard.dataset.value === secondCard.dataset.value;
-            isMatch ? disableCards() : unflipCards();
-        }
-
-        function disableCards() {
-            firstCard.removeEventListener('click', flipCard);
-            secondCard.removeEventListener('click', flipCard);
-            resetBoard();
-        }
-
-        function unflipCards() {
-            setTimeout(() => {
-                firstCard.classList.remove('flipped');
-                secondCard.classList.remove('flipped');
-                firstCard.textContent = '';
-                secondCard.textContent = '';
-                resetBoard();
-            }, 1000);
-        }
-
-        function resetBoard() {
-            [firstCard, secondCard, lockBoard] = [null, null, false];
-        }
-
-        function startGame() {
-            shuffle(cards);
-            const gameBoard = document.getElementById('gameBoard');
-            cards.forEach(cardValue => {
-                const card = createCard(cardValue);
-                gameBoard.appendChild(card);
+            document.addEventListener("keydown", () => {
+                velocity += lift;
             });
-        }
 
-        startGame();
+            function drawFlappy() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#FF0";
+                ctx.fillRect(50, birdY, 20, 20);
+                velocity += gravity;
+                birdY += velocity;
+
+                if (birdY + 20 > canvas.height) {
+                    birdY = canvas.height - 20;
+                    velocity = 0;
+                }
+                if (birdY < 0) {
+                    birdY = 0;
+                    velocity = 0;
+                }
+
+                requestAnimationFrame(drawFlappy);
+            }
+            drawFlappy();
+        };
+
+        // Tetris Game Logic
+        const startTetris = () => {
+            const canvas = document.getElementById("tetrisCanvas");
+            const ctx = canvas.getContext("2d");
+            // Tetris game logic would go here
+        };
+
+        // Pong Game Logic
+        const startPong = () => {
+            const canvas = document.getElementById("pongCanvas");
+            const ctx = canvas.getContext("2d");
+            // Pong game logic would go here
+        };
+
+        // Snake Game Logic
+        const startSnake = () => {
+            const canvas = document.getElementById("snakeCanvas");
+            const ctx = canvas.getContext("2d");
+            // Snake game logic would go here
+        };
+
+        // Breakout Game Logic
+        const startBreakout = () => {
+            const canvas = document.getElementById("breakoutCanvas");
+            const ctx = canvas.getContext("2d");
+            // Breakout game logic would go here
+        };
+
+        // Memory Game Logic
+        const startMemory = () => {
+            const memoryBoard = document.getElementById("memoryBoard");
+            memoryBoard.innerHTML = ''; // Clear the board
+            // Memory game logic would go here
+        };
+
+        // Space Invaders Game Logic
+        const startSpaceInvaders = () => {
+            const canvas = document.getElementById("spaceCanvas");
+            const ctx = canvas.getContext("2d");
+            // Space Invaders game logic would go here
+        };
+
     </script>
-
 </body>
 </html>
