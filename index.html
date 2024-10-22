@@ -3,33 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Games in One</title>
+    <title>Game Selector</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
             background-color: #f4f4f4;
-        }
-        h1 {
             text-align: center;
         }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .menu {
+            margin-bottom: 20px;
+        }
+        .menu button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
         .game-container {
-            margin: 20px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: none;
+            margin: 20px auto;
+            border: 1px solid #000;
+            padding: 10px;
+            background-color: #fff;
         }
         canvas {
             border: 1px solid #000;
-            margin-bottom: 10px;
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
 
-    <h1>All Games</h1>
+    <h1>Select a Game to Play</h1>
+    <div class="menu">
+        <button onclick="showGame('game2048')">2048</button>
+        <button onclick="showGame('gameFlappy')">Flappy Bird</button>
+        <button onclick="showGame('gameTetris')">Tetris</button>
+        <button onclick="showGame('gamePong')">Pong</button>
+        <button onclick="showGame('gameSnake')">Snake</button>
+        <button onclick="showGame('gameBreakout')">Breakout</button>
+        <button onclick="showGame('gameMemory')">Memory Game</button>
+        <button onclick="showGame('gameSpace')">Space Invaders</button>
+    </div>
 
+    <!-- Game Containers -->
+    
     <!-- 2048 Game -->
     <div class="game-container" id="game2048">
         <h2>2048</h2>
@@ -38,55 +61,63 @@
     </div>
 
     <!-- Flappy Bird -->
-    <div class="game-container">
+    <div class="game-container" id="gameFlappy">
         <h2>Flappy Bird</h2>
         <canvas id="flappyCanvas" width="320" height="480"></canvas>
         <button onclick="startFlappy()">Start Game</button>
     </div>
 
     <!-- Tetris Game -->
-    <div class="game-container">
+    <div class="game-container" id="gameTetris">
         <h2>Tetris</h2>
         <canvas id="tetrisCanvas" width="300" height="600"></canvas>
         <button onclick="startTetris()">Start Game</button>
     </div>
 
     <!-- Pong Game -->
-    <div class="game-container">
+    <div class="game-container" id="gamePong">
         <h2>Pong</h2>
         <canvas id="pongCanvas" width="600" height="400"></canvas>
         <button onclick="startPong()">Start Game</button>
     </div>
 
     <!-- Snake Game -->
-    <div class="game-container">
+    <div class="game-container" id="gameSnake">
         <h2>Snake</h2>
         <canvas id="snakeCanvas" width="400" height="400"></canvas>
         <button onclick="startSnake()">Start Game</button>
     </div>
 
     <!-- Breakout Game -->
-    <div class="game-container">
+    <div class="game-container" id="gameBreakout">
         <h2>Breakout</h2>
         <canvas id="breakoutCanvas" width="480" height="320"></canvas>
         <button onclick="startBreakout()">Start Game</button>
     </div>
 
     <!-- Memory Game -->
-    <div class="game-container">
+    <div class="game-container" id="gameMemory">
         <h2>Memory Game</h2>
         <div id="memoryBoard"></div>
         <button onclick="startMemory()">New Game</button>
     </div>
 
     <!-- Space Invaders Game -->
-    <div class="game-container">
+    <div class="game-container" id="gameSpace">
         <h2>Space Invaders</h2>
         <canvas id="spaceCanvas" width="480" height="320"></canvas>
         <button onclick="startSpaceInvaders()">Start Game</button>
     </div>
 
     <script>
+        function showGame(gameId) {
+            // Hide all game containers
+            const gameContainers = document.querySelectorAll('.game-container');
+            gameContainers.forEach(container => container.style.display = 'none');
+            // Show selected game
+            document.getElementById(gameId).style.display = 'block';
+        }
+
         // 2048 Game Logic
         const start2048 = () => {
             const gridContainer = document.getElementById("grid-container");
@@ -97,6 +128,10 @@
                 cell.style.width = "100px";
                 cell.style.height = "100px";
                 cell.style.backgroundColor = "#ccc";
+                cell.style.display = "inline-block";
+                cell.style.lineHeight = "100px";
+                cell.style.fontSize = "24px";
+                cell.style.textAlign = "center";
                 gridContainer.appendChild(cell);
             }
             // More 2048 logic would go here
