@@ -175,69 +175,248 @@
         const startTetris = () => {
             const canvas = document.getElementById("tetrisCanvas");
             const ctx = canvas.getContext("2d");
-            // Simple Tetris grid for demonstration
+            // Basic Tetris grid for demonstration
             ctx.fillStyle = "#000";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            // Tetris game logic would go here
+            // Additional Tetris game logic would go here
         };
 
         // Pong Game Logic
         const startPong = () => {
             const canvas = document.getElementById("pongCanvas");
             const ctx = canvas.getContext("2d");
-            // Simple Pong logic for demonstration
-            ctx.fillStyle = "#000";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            // Pong game logic would go here
+            let paddleHeight = 100;
+            let paddleWidth = 10;
+            let playerY = (canvas.height - paddleHeight) / 2;
+            let computerY = (canvas.height - paddleHeight) / 2;
+            let ballX = canvas.width / 2;
+            let ballY = canvas.height / 2;
+            let ballSpeedX = 5;
+            let ballSpeedY = 5;
+
+            document.addEventListener("mousemove", (event) => {
+                const mouseY = event.clientY - canvas.getBoundingClientRect().top;
+                if (mouseY > 0 && mouseY < canvas.height - paddleHeight) {
+                    playerY = mouseY;
+                }
+            });
+
+            function drawPong() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#00F";
+                ctx.fillRect(0, playerY, paddleWidth, paddleHeight);
+                ctx.fillRect(canvas.width - paddleWidth, computerY, paddleWidth, paddleHeight);
+                ctx.fillStyle = "#F00";
+                ctx.fillRect(ballX, ballY, 10, 10);
+
+                ballX += ballSpeedX;
+                ballY += ballSpeedY;
+
+                if (ballY <= 0 || ballY >= canvas.height - 10) {
+                    ballSpeedY = -ballSpeedY;
+                }
+                if (ballX <= paddleWidth) {
+                    if (ballY > playerY && ballY < playerY + paddleHeight) {
+                        ballSpeedX = -ballSpeedX;
+                    } else {
+                        ballX = canvas.width / 2;
+                        ballY = canvas.height / 2;
+                    }
+                }
+                if (ballX >= canvas.width - paddleWidth - 10) {
+                    if (ballY > computerY && ballY < computerY + paddleHeight) {
+                        ballSpeedX = -ballSpeedX;
+                    } else {
+                        ballX = canvas.width / 2;
+                        ballY = canvas.height / 2;
+                    }
+                }
+
+                computerY += (ballY - (computerY + paddleHeight / 2)) * 0.1;
+
+                requestAnimationFrame(drawPong);
+            }
+            drawPong();
         };
 
         // Snake Game Logic
         const startSnake = () => {
             const canvas = document.getElementById("snakeCanvas");
             const ctx = canvas.getContext("2d");
-            // Simple Snake logic for demonstration
-            ctx.fillStyle = "#000";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            // Snake game logic would go here
+            let snake = [{ x: 10, y: 10 }];
+            let direction = { x: 1, y: 0 };
+            let food = { x: Math.floor(Math.random() * 20) * 20, y: Math.floor(Math.random() * 20) * 20 };
+            let score = 0;
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "ArrowUp" && direction.y !== 1) direction = { x: 0, y: -1 };
+                if (event.key === "ArrowDown" && direction.y !== -1) direction = { x: 0, y: 1 };
+                if (event.key === "ArrowLeft" && direction.x !== 1) direction = { x: -1, y: 0 };
+                if (event.key === "ArrowRight" && direction.x !== -1) direction = { x: 1, y: 0 };
+            });
+
+            function drawSnake() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "green";
+                snake.forEach(segment => {
+                    ctx.fillRect(segment.x, segment.y, 20, 20);
+                });
+                ctx.fillStyle = "red";
+                ctx.fillRect(food.x, food.y, 20, 20);
+
+                let head = { x: snake[0].x + direction.x * 20, y: snake[0].y + direction.y * 20 };
+                if (head.x === food.x && head.y === food.y) {
+                    food = { x: Math.floor(Math.random() * 20) * 20, y: Math.floor(Math.random() * 20) * 20 };
+                    score++;
+                } else {
+                    snake.pop();
+                }
+                snake.unshift(head);
+
+                requestAnimationFrame(drawSnake);
+            }
+            drawSnake();
         };
 
         // Breakout Game Logic
         const startBreakout = () => {
             const canvas = document.getElementById("breakoutCanvas");
             const ctx = canvas.getContext("2d");
-            // Simple Breakout logic for demonstration
-            ctx.fillStyle = "#000";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            // Breakout game logic would go here
+            let ballRadius = 10;
+            let x = canvas.width / 2;
+            let y = canvas.height - 30;
+            let dx = 2;
+            let dy = -2;
+            let paddleHeight = 10;
+            let paddleWidth = 75;
+            let paddleX = (canvas.width - paddleWidth) / 2;
+
+            document.addEventListener("mousemove", (event) => {
+                const mouseX = event.clientX - canvas.getBoundingClientRect().left;
+                if (mouseX > 0 && mouseX < canvas.width) {
+                    paddleX = mouseX - paddleWidth / 2;
+                }
+            });
+
+            function drawBreakout() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#0095DD";
+                ctx.fillRect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+                ctx.beginPath();
+                ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+                ctx.fillStyle = "#0095DD";
+                ctx.fill();
+                ctx.closePath();
+
+                if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) dx = -dx;
+                if (y + dy < ballRadius) dy = -dy;
+                else if (y + dy > canvas.height - ballRadius) {
+                    if (x > paddleX && x < paddleX + paddleWidth) dy = -dy;
+                    else {
+                        document.location.reload();
+                    }
+                }
+
+                x += dx;
+                y += dy;
+
+                requestAnimationFrame(drawBreakout);
+            }
+            drawBreakout();
         };
 
         // Memory Game Logic
         const startMemory = () => {
-            const memoryBoard = document.getElementById("memoryBoard");
-            memoryBoard.innerHTML = ''; // Clear the board
-            // Memory game logic for demonstration
-            const cards = ['A', 'B', 'A', 'B']; // Sample card set
+            const board = document.getElementById("memoryBoard");
+            board.innerHTML = '';
+            let cards = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+            cards = cards.concat(cards);
+            cards.sort(() => 0.5 - Math.random());
             cards.forEach(card => {
-                const cardElement = document.createElement('div');
-                cardElement.textContent = card;
-                cardElement.style.width = '50px';
-                cardElement.style.height = '50px';
-                cardElement.style.display = 'inline-block';
-                cardElement.style.border = '1px solid #999';
-                cardElement.style.lineHeight = '50px';
-                cardElement.style.textAlign = 'center';
-                memoryBoard.appendChild(cardElement);
+                const cardElement = document.createElement("div");
+                cardElement.innerText = "?";
+                cardElement.style.display = "inline-block";
+                cardElement.style.width = "50px";
+                cardElement.style.height = "50px";
+                cardElement.style.border = "1px solid #000";
+                cardElement.style.lineHeight = "50px";
+                cardElement.style.textAlign = "center";
+                cardElement.dataset.cardValue = card;
+                cardElement.addEventListener("click", flipCard);
+                board.appendChild(cardElement);
             });
         };
 
-        // Space Invaders Game Logic
+        let flippedCards = [];
+        const flipCard = (event) => {
+            const card = event.target;
+            if (flippedCards.length < 2 && !card.classList.contains("flipped")) {
+                card.innerText = card.dataset.cardValue;
+                card.classList.add("flipped");
+                flippedCards.push(card);
+                if (flippedCards.length === 2) {
+                    setTimeout(checkMatch, 1000);
+                }
+            }
+        };
+
+        const checkMatch = () => {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.cardValue === card2.dataset.cardValue) {
+                card1.removeEventListener("click", flipCard);
+                card2.removeEventListener("click", flipCard);
+            } else {
+                card1.innerText = "?";
+                card2.innerText = "?";
+                card1.classList.remove("flipped");
+                card2.classList.remove("flipped");
+            }
+            flippedCards = [];
+        };
+
+        // Space Invaders Logic
         const startSpaceInvaders = () => {
             const canvas = document.getElementById("spaceCanvas");
             const ctx = canvas.getContext("2d");
-            // Simple Space Invaders logic for demonstration
-            ctx.fillStyle = "#000";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            // Space Invaders game logic would go here
+            let spaceshipX = canvas.width / 2 - 20;
+            let bullets = [];
+            let aliens = [];
+
+            for (let i = 0; i < 5; i++) {
+                aliens.push({ x: i * 60 + 30, y: 30 });
+            }
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "ArrowLeft" && spaceshipX > 0) spaceshipX -= 20;
+                if (event.key === "ArrowRight" && spaceshipX < canvas.width - 40) spaceshipX += 20;
+                if (event.key === " ") {
+                    bullets.push({ x: spaceshipX + 10, y: canvas.height - 40 });
+                }
+            });
+
+            function drawSpaceInvaders() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#00F";
+                ctx.fillRect(spaceshipX, canvas.height - 30, 40, 20);
+
+                bullets.forEach((bullet, index) => {
+                    ctx.fillStyle = "#F00";
+                    ctx.fillRect(bullet.x, bullet.y, 5, 20);
+                    bullet.y -= 5;
+                    if (bullet.y < 0) bullets.splice(index, 1);
+                });
+
+                aliens.forEach((alien, index) => {
+                    ctx.fillStyle = "#0F0";
+                    ctx.fillRect(alien.x, alien.y, 40, 20);
+                    if (bullets.some(bullet => bullet.x > alien.x && bullet.x < alien.x + 40 && bullet.y < alien.y + 20 && bullet.y > alien.y)) {
+                        aliens.splice(index, 1);
+                    }
+                });
+
+                requestAnimationFrame(drawSpaceInvaders);
+            }
+            drawSpaceInvaders();
         };
 
     </script>
